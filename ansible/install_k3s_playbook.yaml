@@ -1,0 +1,27 @@
+---
+- name: Placeholder Ansible Play
+  hosts: control_plane
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Install K3s without traefik
+      shell: |
+        curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--disable traefik" sh -
+    - name: register token as fact
+      shell: |
+        cat /var/lib/rancher/k3s/server/node-token
+      register: k3s_token
+    - name: set_fact
+      set_fact:
+        k3s_token: "{{ k3s_token.stdout }}"
+- name: Install K3s on workers
+  hosts: workers
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Install K3s
+      vars:
+        k3s_token: "{{ hostvars['k3s-server'].k3s_token }}"
+        k3s_server: "{{ hostvars['k3s-server'].ansible_host }}"
+      shell: |
+        curl -sfL https://get.k3s.io | K3S_URL=https://{{ k3s_server }}:6443 K3S_TOKEN="{{ k3s_token }}" sh -
