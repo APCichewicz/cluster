@@ -4,9 +4,9 @@ metadata:
   name: traefik
   namespace: traefik
 spec:
-  project: default
+  project: default  
   source:
-    repoURL: https://github.com/traefik/traefik-helm-chart.git
+    repoURL: https://github.com/traefik/traefik-helm-chart
     chart: traefik
   destination:
     server: https://kubernetes.default.svc
