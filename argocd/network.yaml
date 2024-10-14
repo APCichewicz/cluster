@@ -10,3 +10,22 @@ syncPolicy:
   automated: {}
   syncOptions:
     - CreateNamespace=true
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: network
+  namespace: argocd
+spec:
+  project: default
+  source:
+  repoURL: git@github.com:APCichewicz/cluster.git
+  path: 'argocd/app_of_apps/network'
+  targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
