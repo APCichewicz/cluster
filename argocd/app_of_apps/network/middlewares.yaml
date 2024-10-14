@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: git@github.com:APCichewicz/cluster.git
-    path: argocd/app_of_apps/network/middlewares
+    path: argocd/app_of_apps/network/middleware
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
