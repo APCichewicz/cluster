@@ -12,6 +12,11 @@ spec:
     repoURL: https://traefik.github.io/charts
     targetRevision: 32.1.0
     chart: traefik
+  sources:
+    - repoURL: git@github.com:APCichewicz/cluster.git
+      path: argocd/app_of_apps/network/traefik_values.yaml
+      targetRevision: HEAD
+  
   syncPolicy:
     automated: {}
     syncOptions:
