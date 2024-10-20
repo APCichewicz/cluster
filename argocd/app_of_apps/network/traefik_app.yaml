@@ -8,15 +8,16 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: traefik
-  source:
-    repoURL: https://traefik.github.io/charts
-    targetRevision: 32.1.0
-    chart: traefik
   sources:
+    - repoURL: https://traefik.github.io/charts
+      targetRevision: 32.1.0
+      chart: traefik
+      helm:
+      valueFiles:
+        - $repo/argocd/network/traefik_values.yaml
     - repoURL: git@github.com:APCichewicz/cluster.git
-      path: argocd/app_of_apps/network/traefik_values.yaml
       targetRevision: HEAD
-  
+      ref: repo
   syncPolicy:
     automated: {}
     syncOptions:
