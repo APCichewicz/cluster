@@ -9,6 +9,7 @@ spec:
   source:
     repoURL: https://metallb.github.io/metallb/charts
     chart: metallb
+    targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
     namespace: metallb
