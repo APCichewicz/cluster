@@ -7,7 +7,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://metallb.github.io/metallb/charts
+    repoURL: https://metallb.github.io/metallb/
     chart: metallb
     targetRevision: 0.14.8
   destination:
