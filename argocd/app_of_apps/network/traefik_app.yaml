@@ -13,8 +13,8 @@ spec:
       targetRevision: 32.1.0
       chart: traefik
       helm:
-      valueFiles:
-        - $repo/argocd/network/traefik_values.yaml
+        valueFiles:
+          - $repo/argocd/network/traefik_values.yaml
     - repoURL: git@github.com:APCichewicz/cluster.git
       targetRevision: HEAD
       ref: repo
