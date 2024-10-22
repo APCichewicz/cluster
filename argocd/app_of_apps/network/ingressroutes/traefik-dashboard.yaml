@@ -15,7 +15,7 @@ spec:
         - name: traefik-dashboard-basicauth
           namespace: traefik
       services:
-        - name: api@internal
-          kind: TraefikService
+        - name: traefik
+          kind: ClusterIP
 #  tls:
 #    secretName: local-example-com-staging-tls
