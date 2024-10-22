@@ -16,6 +16,6 @@ spec:
           namespace: traefik
       services:
         - name: traefik
-          kind: Service
+          kind: TraefikService
 #  tls:
 #    secretName: local-example-com-staging-tls
