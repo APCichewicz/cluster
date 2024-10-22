@@ -16,6 +16,6 @@ spec:
           namespace: traefik
       services:
         - name: traefik
-          kind: ClusterIP
+          kind: service
 #  tls:
 #    secretName: local-example-com-staging-tls
