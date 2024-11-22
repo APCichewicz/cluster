@@ -1,0 +1,27 @@
+---
+- name: partition and mount disk
+  hosts: workers
+  become: true
+  tasks:
+    - name: partition disk
+      community.general.parted:
+        device: /dev/sdb
+        number: 1
+        state: present
+        part_type: primary
+        fs_type: ext4
+        part_start: 0%
+        part_end: 100%
+    - name: format partition
+      filesystem:
+        device: /dev/sdb1
+        fstype: ext4
+    - name: mount 
+      ansible.posix.mount:
+        path: /mnt
+        src: /dev/sdb1
+        fstype: ext4
+        state: present
+    - name: mount the disk now
+      command: mount -a
+  

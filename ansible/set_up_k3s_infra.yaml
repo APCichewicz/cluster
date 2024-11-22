@@ -1,0 +1,187 @@
+---
+
+- name: set up kubernetes infrastructure
+  hosts:  k3s-server-1
+  become: true
+  tasks:
+    - name: install helm on ubuntu k3s-server-1
+      ansible.builtin.shell:
+        cmd: |
+          curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+          sudo apt-get install apt-transport-https --yes
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+          sudo apt-get update
+          sudo apt-get install helm
+    - name: install kubernetes python client
+      pip:
+        name: kubernetes
+    - name: conver k3s kubeconfig to normal kuceconfig
+      ansible.builtin.shell:
+        cmd: |
+          sudo cat /etc/rancher/k3s/k3s.yaml > ~/.kube/config
+    - name: create argocd namespace
+      kubernetes.core.k8s:
+        state: present
+        kind: Namespace
+        name: argocd
+
+    - name: install argocd
+      kubernetes.core.k8s:
+        state: present
+        src: https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+        namespace: argocd 
+    # - name: create metallb namespace
+    #   kubernetes.core.k8s:
+    #     state: present
+    #     kind: Namespace
+    #     name: metallb-system
+    # - name: add metallb helm repo
+    #   kubernetes.core.helm:
+    #     chart_repo_url: https://metallb.github.io/metallb
+    #     chart_ref: metallb
+    #     name: metallb
+    #     release_namespace: metallb-system
+    #     release_name: metallb
+    # - name: copy manifest to remote host
+    #   ansible.builtin.copy:
+    #     src: ./values/metallb_config.yaml
+    #     dest: /tmp/metallb_config.yaml
+    # - name: apply metallb manifest
+    #   kubernetes.core.k8s:
+    #     state: present
+    #     src: /tmp/metallb_config.yaml
+    #     namespace: metallb-system
+    - name: install longhorn
+      kubernetes.core.k8s:
+        state: present
+        src: https://raw.githubusercontent.com/longhorn/longhorn/v1.7.2/deploy/longhorn.yaml
+    - name: create cert manager namespace
+      kubernetes.core.k8s:
+        state: present
+        kind: Namespace
+        name: cert-manager
+    - name: copy cert manager values to remote host
+      ansible.builtin.copy:
+        src: ./values/cert-manager-values.yaml
+        dest: /tmp/cert-manager-values.yaml
+    - name: install cert-manager
+      kubernetes.core.helm:
+        chart_repo_url: https://charts.jetstack.io
+        chart_ref: cert-manager
+        name: cert-manager
+        release_name: cert-manager
+        release_namespace: cert-manager
+        values_files:
+          - '/tmp/cert-manager-values.yaml'
+
+    - name: copy cert manager secret to remote host
+      ansible.builtin.copy:
+        src: ./values/cert-manager-secret.yaml
+        dest: /tmp/cert-manager-secret.yaml
+    - name: create cert manager secret from manifest
+      kubernetes.core.k8s:
+        state: present
+        src: /tmp/cert-manager-secret.yaml
+        namespace: cert-manager
+    - name: delete cert manager secret from remote host
+      ansible.builtin.file:
+        path: /tmp/cert-manager-secret.yaml
+        state: absent
+    - name: copy cluster issuer to remote host
+      ansible.builtin.copy:
+        src: ./values/cluster-issuer.yaml
+        dest: /tmp/cluster-issuer.yaml
+    - name: create cluster issuer
+      kubernetes.core.k8s:
+        state: present
+        src: /tmp/cluster-issuer.yaml
+        namespace: cert-manager
+    - name: delete cluster issuer from remote host
+      ansible.builtin.file:
+        path: /tmp/cluster-issuer.yaml
+        state: absent
+    - name: copy cluster cert to remote host
+      ansible.builtin.copy:
+        src: ./values/cluster-cert.yaml
+        dest: /tmp/cluster-cert.yaml
+    - name: remove cluster cert if exists
+      kubernetes.core.k8s:
+        state: absent
+        kind: Secret
+        name: cluster-cert
+        namespace: default
+    - name: create cluster cert
+      kubernetes.core.k8s:
+        state: present
+        src: /tmp/cluster-cert.yaml
+        namespace: default
+    - name: delete cluster cert from remote host
+      ansible.builtin.file:
+        path: /tmp/cluster-cert.yaml
+        state: absent
+    - name: copy traefik values to remote host
+      ansible.builtin.copy:
+        src: ./values/traefik_values.yaml
+        dest: /tmp/traefik_values.yaml
+    - name: create traefik namespace
+      kubernetes.core.k8s:
+        state: present
+        kind: Namespace
+        name: traefik
+    # - name: delete k3s default traefik installation
+    #   shell:
+    #     cmd: |
+    #       # First remove the Traefik Helm release
+    #       kubectl -n kube-system delete helmcharts.helm.cattle.io traefik
+
+    #       # Delete the IngressClass
+    #       kubectl delete ingressclass traefik
+    - name: install traefik
+      kubernetes.core.helm:
+        chart_repo_url: https://helm.traefik.io/traefik
+        chart_ref: traefik
+        name: traefik
+        release_namespace: traefik
+        release_name: traefik
+        values_files:
+          - /tmp/traefik_values.yaml
+    - name: copy traefik secret to remote host
+      ansible.builtin.copy:
+        src: ./values/traefik-secret.yaml
+        dest: /tmp/traefik-secret.yaml
+    - name: apply traefik auth secret
+      kubernetes.core.k8s:
+        state: present
+        src: /tmp/traefik-secret.yaml
+        namespace: traefik
+    - name: delete traefik secret from remote host
+      ansible.builtin.file:
+        path: /tmp/traefik-secret.yaml
+        state: absent
+    - name: copy traefik dashboard middleware to remote host
+      ansible.builtin.copy:
+        src: ./values/traefik-dashboard-middleware.yaml
+        dest: /tmp/traefik-dashboard-middleware.yaml
+    - name: apply traefik auth middleware
+      kubernetes.core.k8s:
+        state: present
+        src: /tmp/traefik-dashboard-middleware.yaml
+        namespace: traefik
+    - name: delete traefik dashboard middleware from remote host
+      ansible.builtin.file:
+        path: /tmp/traefik-dashboard-middleware.yaml
+        state: absent
+    - name: copy traefik dashboard ingress to remote host
+      ansible.builtin.copy:
+        src: ./values/traefik-dashboard.yaml
+        dest: /tmp/traefik-dashboard.yaml
+    - name: apply traefik dashboard ingress
+      kubernetes.core.k8s:
+        state: present
+        src: /tmp/traefik-dashboard.yaml
+        namespace: traefik
+    - name: delete traefik dashboard ingress from remote host
+      ansible.builtin.file:
+        path: /tmp/traefik-dashboard.yaml
+        state: absent
+    

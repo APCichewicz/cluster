@@ -1,27 +1,67 @@
 ---
+
 - name: Placeholder Ansible Play
   hosts: control_plane
   become: true
+  vars:
+    static_ip: "192.168.1.100"
+    k3s_token: "secret"
   gather_facts: false
   tasks:
-    - name: Install K3s without traefik
+    - name: check if k3s is installed
       shell: |
-        curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--disable traefik" sh -
-    - name: register token as fact
+        # if path /usr/local/bin/k3s-uninstall.sh exists, then k3s is installed. run uninstall.sh
+        if [ -f /usr/local/bin/k3s-uninstall.sh ]; then
+          echo "k3s is installed"
+          sudo /usr/local/bin/k3s-uninstall.sh
+        else
+          echo "k3s is not installed"
+        fi
+    - name: Install K3s on master
+      when: inventory_hostname == 'k3s-server-1' 
       shell: |
-        cat /var/lib/rancher/k3s/server/node-token
-      register: k3s_token
-    - name: set_fact
+        curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server" sh -s - --token {{ k3s_token }} \
+        --cluster-init \
+        --disable=traefik \
+        --tls-san={{ static_ip }} # Optional, needed if using a fixed registration address
+    - name: install k3s on other control plane nodes
+      when: inventory_hostname != 'k3s-server-1'
+      shell: |
+        # if path /usr/local/bin/k3s-uninstall.sh exists, then k3s is installed. run uninstall.sh
+        if [ -f /usr/local/bin/k3s-uninstall.sh ]; then
+          echo "k3s is installed"
+          sudo /usr/local/bin/k3s-uninstall.sh
+        else
+          echo "k3s is not installed"
+        fi
+        curl -sfL https://get.k3s.io | K3S_TOKEN={{ k3s_token }} sh -s - server \
+        --server https://{{ static_ip }}:6443 
+    # register the server token /var/lib/rancher/k3s/server/node-token
+    - name: register the server token
+      shell: |
+        sudo cat /var/lib/rancher/k3s/server/node-token
+      register: server_token
+    - name: set the server token
       set_fact:
-        k3s_token: "{{ k3s_token.stdout }}"
+        server_token: "{{ server_token.stdout }}"
 - name: Install K3s on workers
   hosts: workers
   become: true
+  serial: 5
   gather_facts: false
   tasks:
+    # get the server token from previous play
     - name: Install K3s
-      vars:
-        k3s_token: "{{ hostvars['k3s-server'].k3s_token }}"
-        k3s_server: "{{ hostvars['k3s-server'].ansible_host }}"
       shell: |
-        curl -sfL https://get.k3s.io | K3S_URL=https://{{ k3s_server }}:6443 K3S_TOKEN="{{ k3s_token }}" sh -
+        # if path /usr/local/bin/k3s-agent-uninstall.sh exists, then k3s agent is installed. run item
+        if [ -f /usr/local/bin/k3s-agent-uninstall.sh ]; then
+          echo "k3s agent is installed"
+          sudo /usr/local/bin/k3s-agent-uninstall.sh
+        fi
+        
+        echo "k3s agent is not installed"
+        curl -sfL https://get.k3s.io | K3S_URL=https://192.168.1.100:6443 sh -s - agent --token "{{ hostvars['k3s-server-1'].server_token }}"
+
+
+
+        

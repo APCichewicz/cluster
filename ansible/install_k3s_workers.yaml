@@ -1,0 +1,19 @@
+--- 
+- name: Install K3s on workers
+  hosts: workers
+  become: true
+  serial: 5
+  gather_facts: false
+  tasks:
+    - name: Install K3s
+      shell: |
+        # if path /usr/local/bin/k3s-agent-uninstall.sh exists, then k3s agent is installed. run item
+        if [ -f /usr/local/bin/k3s-agent-uninstall.sh ]; then
+          echo "k3s agent is installed"
+          sudo /usr/local/bin/k3s-agent-uninstall.sh
+        fi
+        
+        echo "k3s agent is not installed"
+        curl -sfL https://get.k3s.io | K3S_URL=https://192.168.1.100:6443 sh -s - agent --token "K10fc7a9df93ce1d9d446ddf393080a6cb1591c3fb9e3725fba8375493b19b722d0::server:secret"
+
+

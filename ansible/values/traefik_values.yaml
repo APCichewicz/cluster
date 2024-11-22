@@ -1,0 +1,64 @@
+globalArguments:
+  - "--global.sendanonymoususage=false"
+  - "--global.checknewversion=false"
+
+additionalArguments:
+  - "--serversTransport.insecureSkipVerify=true"
+
+deployment:
+  enabled: true
+  replicas: 3
+  annotations: {}
+  podAnnotations: {}
+  additionalContainers: []
+  initContainers: []
+
+ports:
+  web:
+    port: 80
+    targetPort: 80
+    redirectTo:
+      port: websecure
+      priority: 10
+  websecure:
+    port: 443
+    targetPort: 443
+    tls:
+      enabled: true
+      
+ingressRoute:
+  dashboard:
+    enabled: true
+
+providers:
+  kubernetesCRD:
+    enabled: true
+    ingressClass: traefik-external
+    allowExternalNameServices: true
+    allowCrossNamespace: true
+  kubernetesIngress:
+    enabled: true
+    allowExternalNameServices: true
+    publishedService:
+      enabled: false
+
+rbac:
+  enabled: true
+
+logs:
+  general:
+    level: "DEBUG"
+  access:
+    enabled: true
+
+
+service:
+  enabled: true
+  type: NodePort
+  annotations: 
+    metallb.universe.tf/address-pool: traefik-pool
+    service.beta.kubernetes.io/metal-lb: "true"
+  labels: {}
+  spec: {} # this should be an IP in the MetalLB range
+  loadBalancerSourceRanges: []
+  externalIPs: []
