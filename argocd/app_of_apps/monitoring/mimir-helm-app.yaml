@@ -11,7 +11,7 @@ spec:
   # Helm-specific source configuration
   sources:
     - repoURL: 'https://grafana.github.io/helm-charts/'
-      targetRevision: HEAD
+      targetRevision: 5.5.0
       chart: grafana/mimir-distributed # Path to your Helm chart in the repo
       # helm:
         # Release name (optional - defaults to application name)
