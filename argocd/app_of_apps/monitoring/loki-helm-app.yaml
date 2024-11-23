@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mimir
+  namespace: argocd
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  project: default
+  # Helm-specific source configuration
+  sources:
+    - repoURL: 'https://grafana.github.io/helm-charts'
+      targetRevision: 5.5.0
+      chart: loki # Path to your Helm chart in the repo
+      # helm:
+        # Release name (optional - defaults to application name)
+        # releaseName: mimir
+
+        # Values file overrides
+        # valueFiles:
+        #   - values.yaml
+
+      # Sync policy
+      syncPolicy:
+        syncOptions:
+          - Validate=false
+          - CreateNamespace=true
+          - ServerSideApply=true
+          - RespectIgnoreDifferences=true
+        automated:
+          prune: false
+          selfHeal: false
