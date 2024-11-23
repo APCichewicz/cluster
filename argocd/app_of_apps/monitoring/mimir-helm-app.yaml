@@ -16,8 +16,8 @@ spec:
       releaseName: mimir
 
       # Values file overrides
-      valueFiles:
-        - values.yaml
+      # valueFiles:
+      #   - values.yaml
 
 
   # Destination cluster and namespace
