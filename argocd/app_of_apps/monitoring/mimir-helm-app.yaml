@@ -8,7 +8,7 @@ spec:
 
   # Helm-specific source configuration
   source:
-    repoURL: https://grafana.github.io/helm-charts # Your Helm chart repository URL
+    repoURL: https://grafana.github.io/helm-charts.git # Your Helm chart repository URL
     targetRevision: HEAD
     path: grafana/mimir-distributed # Path to your Helm chart in the repo
     helm:
