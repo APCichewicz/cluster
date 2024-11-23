@@ -10,9 +10,9 @@ spec:
   project: default
   # Helm-specific source configuration
   sources:
-    - repoURL: 'https://grafana.github.io/helm-charts/charts'
+    - repoURL: 'https://grafana.github.io/helm-charts/'
       targetRevision: HEAD
-      path: mimir-distributed # Path to your Helm chart in the repo
+      chart: grafana/mimir-distributed # Path to your Helm chart in the repo
       # helm:
         # Release name (optional - defaults to application name)
         # releaseName: mimir
