@@ -8,13 +8,12 @@ spec:
     server: https://kubernetes.default.svc
     namespace: monitoring
   project: default
-
   # Helm-specific source configuration
   sources:
     - repoURL: 'https://grafana.github.io/helm-charts'
       targetRevision: HEAD
-      path: grafana/mimir-distributed # Path to your Helm chart in the repo
-      helm:
+      path: mimir-distributed # Path to your Helm chart in the repo
+      # helm:
         # Release name (optional - defaults to application name)
         # releaseName: mimir
 
