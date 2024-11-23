@@ -6,8 +6,8 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: git@github.com:APCichewicz/cluster.git
-    path: argocd/app_of_apps/network/monitoring
+    repoURL: https://github.com/APCichewicz/cluster.git
+    path: argocd/app_of_apps/monitoring
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
