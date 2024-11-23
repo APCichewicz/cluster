@@ -4,31 +4,31 @@ metadata:
   name: mimir
   namespace: argocd
 spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
   project: default
 
   # Helm-specific source configuration
   source:
-    repoURL: https://grafana.github.io/helm-charts.git # Your Helm chart repository URL
-    targetRevision: HEAD
-    path: grafana/mimir-distributed # Path to your Helm chart in the repo
-    helm:
-      # Release name (optional - defaults to application name)
-      releaseName: mimir
+    - repoURL: https://grafana.github.io/helm-charts
+      targetRevision: HEAD
+      path: grafana/mimir-distributed # Path to your Helm chart in the repo
+      helm:
+        # Release name (optional - defaults to application name)
+        # releaseName: mimir
 
-      # Values file overrides
-      # valueFiles:
-      #   - values.yaml
+        # Values file overrides
+        # valueFiles:
+        #   - values.yaml
 
-
-  # Destination cluster and namespace
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: monitoring
-
-  # Sync policy
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
+      # Sync policy
+      syncPolicy:
+        syncOptions:
+          - Validate=false
+          - CreateNamespace=true
+          - ServerSideApply=true
+          - RespectIgnoreDifferences=true
+        automated:
+          prune: false
+          selfHeal: false
