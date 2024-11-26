@@ -11,7 +11,7 @@ spec:
   # Helm-specific source configuration
   sources:
     - repoURL: 'https://github.com/APCichewicz/cluster.git'
-      path: argocd/app_of_apps/monitoring/values/alloy-values.yaml
+      path: argocd/app_of_apps/monitoring/values
       ref: values
 
       
@@ -24,7 +24,7 @@ spec:
 
         # Values file overrides
         valueFiles:
-          - $values
+          - $values/alloy-values.yaml
 
       # Sync policy
       syncPolicy:
