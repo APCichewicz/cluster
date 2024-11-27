@@ -40,13 +40,13 @@ alloy:
       }
 
       prometheus.scrape "k8s_nodes" {
-        targets = discovery.kubernetes.k8s_nodes
+        targets = [discovery.kubernetes.k8s_nodes]
         forward_to = prometheus.remote_write.mimir
       }
 
       prometheus.scrape "k8s_pods" {
-        targets = discovery.kubernetes.k8s_pods
-        forward_to = prometheus.remote_write.mimir
+        targets = [discovery.kubernetes.k8s_pods]
+        forward_to = prometheus.remote_write.mimir  
       }
 
       prometheus.remote_write "mimir" {
@@ -57,12 +57,12 @@ alloy:
 
       loki.source.kubernetes "k8s_pods" {
         targets = discovery.kubernetes.k8s_pods.targets
-        forward_to = [loki.write.default]
+        forward_to = loki.write.default
       }
 
       loki.source.kubernetes "k8s_nodes" {
         targets = discovery.kubernetes.k8s_nodes.targets
-        forward_to = [loki.write.default]
+        forward_to = loki.write.default
       }
 
       loki.write "default" {
