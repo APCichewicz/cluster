@@ -16,7 +16,7 @@ spec:
 
       
     - repoURL: 'https://grafana.github.io/helm-charts'
-      targetRevision: 1.5.0
+      targetRevision: 0.10.0
       chart: alloy # Path to your Helm chart in the repo
       helm:
         # Release name (optional - defaults to application name)
