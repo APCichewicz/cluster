@@ -51,7 +51,7 @@ alloy:
 
       prometheus.remote_write "mimir" {
         endpoint {
-          url = "https://mimir.monitoring.svc.cluster.local:9009/api/v1/push"
+          url = "https://mimir-nginx.monitoring.svc.cluster.local:9009/api/v1/push"
         }
       }
 
@@ -67,7 +67,7 @@ alloy:
 
       loki.write "default" {
         endpoint {
-          url = "http://loki.monitoring.svc.cluster.local:3100/api/v1/push"
+          url = "http://loki-write.monitoring.svc.cluster.local:3100/api/v1/push"
         }
       } 
 
