@@ -53,7 +53,7 @@ alloy:
         endpoint {
           url = "http://mimir-distributor.monitoring.svc.cluster.local:8080/api/v1/push"
           headers = {
-            X-Scope-OrgID = "1"
+            "X-Scope-OrgID" = "1",
           }
         }
       }
@@ -72,7 +72,7 @@ alloy:
         endpoint {
           url = "http://loki-write.monitoring.svc.cluster.local:3100/loki/api/v1/push"
           headers = {
-            X-Scope-OrgID = "1"
+            "X-Scope-OrgID" = "1",
           }
         }
       } 
