@@ -15,5 +15,6 @@ spec:
         - name: grafana
           namespace: argocd
           kind: Service
+          port: 80
   tls:
    secretName: local-001083-xyz-tls
