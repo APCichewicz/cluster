@@ -1,0 +1,5 @@
+minio:
+  enabled: false
+gateway:
+  enabled: true
+  enabledNonEnterprise: true

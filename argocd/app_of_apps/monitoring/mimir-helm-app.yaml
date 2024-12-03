@@ -10,16 +10,18 @@ spec:
   project: default
   # Helm-specific source configuration
   sources:
+    - repoURL: 'https://github.com/APCichewicz/cluster.git'
+      ref: values
     - repoURL: 'https://grafana.github.io/helm-charts'
       targetRevision: 5.5.0
       chart: mimir-distributed # Path to your Helm chart in the repo
-      # helm:
+      helm:
         # Release name (optional - defaults to application name)
-        # releaseName: mimir
+        releaseName: mimir
 
         # Values file overrides
-        # valueFiles:
-        #   - values.yaml
+        valueFiles:
+          - $values/argocd/app_of_apps/monitoring/values/mimir-values.yaml
 
       # Sync policy
       syncPolicy:
