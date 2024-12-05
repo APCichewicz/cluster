@@ -4,6 +4,16 @@
   hosts:  k3s-server-1
   become: true
   tasks:
+    - name: Remove APT locks
+      ansible.builtin.shell:
+        cmd: |
+          rm -f /var/lib/apt/lists/lock
+          rm -f /var/cache/apt/archives/lock
+          rm -f /var/lib/dpkg/lock*
+    - name: install pip
+      ansible.builtin.apt:
+        name: python3-pip
+        state: present
     - name: install helm on ubuntu k3s-server-1
       ansible.builtin.shell:
         cmd: |
@@ -18,6 +28,7 @@
     - name: conver k3s kubeconfig to normal kuceconfig
       ansible.builtin.shell:
         cmd: |
+          mkdir -p ~/.kube
           sudo cat /etc/rancher/k3s/k3s.yaml > ~/.kube/config
     - name: create argocd namespace
       kubernetes.core.k8s:
@@ -30,27 +41,27 @@
         state: present
         src: https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
         namespace: argocd 
-    # - name: create metallb namespace
-    #   kubernetes.core.k8s:
-    #     state: present
-    #     kind: Namespace
-    #     name: metallb-system
-    # - name: add metallb helm repo
-    #   kubernetes.core.helm:
-    #     chart_repo_url: https://metallb.github.io/metallb
-    #     chart_ref: metallb
-    #     name: metallb
-    #     release_namespace: metallb-system
-    #     release_name: metallb
-    # - name: copy manifest to remote host
-    #   ansible.builtin.copy:
-    #     src: ./values/metallb_config.yaml
-    #     dest: /tmp/metallb_config.yaml
-    # - name: apply metallb manifest
-    #   kubernetes.core.k8s:
-    #     state: present
-    #     src: /tmp/metallb_config.yaml
-    #     namespace: metallb-system
+    - name: create metallb namespace
+      kubernetes.core.k8s:
+        state: present
+        kind: Namespace
+        name: metallb-system
+    - name: add metallb helm repo
+      kubernetes.core.helm:
+        chart_repo_url: https://metallb.github.io/metallb
+        chart_ref: metallb
+        name: metallb
+        release_namespace: metallb-system
+        release_name: metallb
+    - name: copy manifest to remote host
+      ansible.builtin.copy:
+        src: ./values/metallb_config.yaml
+        dest: /tmp/metallb_config.yaml
+    - name: apply metallb manifest
+      kubernetes.core.k8s:
+        state: present
+        src: /tmp/metallb_config.yaml
+        namespace: metallb-system
     - name: install longhorn
       kubernetes.core.k8s:
         state: present
@@ -110,6 +121,11 @@
         kind: Secret
         name: cluster-cert
         namespace: default
+    - name: create traefik namespace
+      kubernetes.core.k8s:
+        state: present
+        kind: Namespace
+        name: traefik
     - name: create cluster cert
       kubernetes.core.k8s:
         state: present
@@ -123,11 +139,7 @@
       ansible.builtin.copy:
         src: ./values/traefik_values.yaml
         dest: /tmp/traefik_values.yaml
-    - name: create traefik namespace
-      kubernetes.core.k8s:
-        state: present
-        kind: Namespace
-        name: traefik
+
     # - name: delete k3s default traefik installation
     #   shell:
     #     cmd: |
