@@ -4,7 +4,9 @@ minio:
 gateway:
   enabled: true
   enabledNonEnterprise: true
-  
+
+nginx:
+  enabled: false
 mimir:
   enterprise:
     enabled: false
