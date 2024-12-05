@@ -20,8 +20,8 @@ spec:
         releaseName: mimir
 
         # # Values file overrides
-        # valueFiles:
-        #   - $values/argocd/app_of_apps/monitoring/values/mimir-values.yaml
+        valueFiles:
+          - $values/argocd/app_of_apps/monitoring/values/mimir-values.yaml
 
       # Sync policy
       syncPolicy:
