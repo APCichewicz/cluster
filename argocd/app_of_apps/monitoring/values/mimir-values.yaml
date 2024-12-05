@@ -1,13 +1,28 @@
-rbac:
-  create: false
-
-serviceAccount:
-  create: true
-  name: mimir
-
 minio:
   enabled: false
 
 gateway:
   enabled: true
   enabledNonEnterprise: true
+  
+mimir:
+  enterprise:
+    enabled: false
+  structuredConfig:
+    common:
+      storage:
+        backend: filesystem
+    blocks_storage:
+      backend: filesystem
+      filesystem:
+        dir: /data/mimir
+    compactor:
+      data_dir: /data/mimir-compactor
+    ruler_storage:
+      backend: filesystem
+      filesystem:
+        dir: /data/mimir-ruler
+    alertmanager_storage:
+      backend: filesystem
+      filesystem:
+        dir: /data/mimir-alertmanager
