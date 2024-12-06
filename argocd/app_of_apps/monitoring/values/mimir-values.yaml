@@ -14,17 +14,4 @@ mimir:
     common:
       storage:
         backend: filesystem
-    blocks_storage:
-      backend: filesystem
-      filesystem:
-        dir: "/blocks"
-    compactor:
-      data_dir: "/compactor"
-    ruler_storage:
-      backend: filesystem
-      filesystem:
-        dir: "/ruler"
-    alertmanager_storage:
-      backend: filesystem
-      filesystem:
-        dir: "/alertmanager"
+
