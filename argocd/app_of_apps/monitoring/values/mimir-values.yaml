@@ -16,8 +16,6 @@ mimir:
         backend: filesystem
     blocks_storage:
       backend: filesystem
-    compactor:
-      data_dir: "/compactor"
     ruler_storage:
       backend: filesystem
     alertmanager_storage:
