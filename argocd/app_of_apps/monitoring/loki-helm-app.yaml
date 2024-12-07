@@ -11,7 +11,7 @@ spec:
   # Helm-specific source configuration
   sources:
     - repoURL: 'https://grafana.github.io/helm-charts'
-      targetRevision: 5.5.0
+      targetRevision: 6.23.0
       chart: loki # Path to your Helm chart in the repo
       # helm:
         # Release name (optional - defaults to application name)
