@@ -10,8 +10,8 @@ spec:
   project: default
   # Helm-specific source configuration
   sources:
-    - repoURL: 'https://github.com/APCichewicz/cluster.git'
-      ref: values
+    # - repoURL: 'https://github.com/APCichewicz/cluster.git'
+    #   ref: values
     - repoURL: 'https://grafana.github.io/helm-charts'
       targetRevision: 0.10.1
       chart: alloy # Path to your Helm chart in the repo
@@ -20,8 +20,8 @@ spec:
         releaseName: alloy
 
         # Values file overrides
-        valueFiles:
-          - $values/argocd/app_of_apps/monitoring/values/alloy-values.yaml
+        # valueFiles:
+        #   - $values/argocd/app_of_apps/monitoring/values/alloy-values.yaml
       # Sync policy
       syncPolicy:
         syncOptions:

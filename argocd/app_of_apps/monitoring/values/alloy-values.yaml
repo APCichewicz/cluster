@@ -1,54 +1,54 @@
 
-alloy:
-  configMap:
-    # -- Create a new ConfigMap for the config file.
-    create: true
-    # -- Content to assign to the new ConfigMap.  This is passed into `tpl` allowing for templating from values.
-    content: |
-      discovery.kubernetes "k8s_pods" {
-        role = "pod"
-      }
+# alloy:
+#   configMap:
+#     # -- Create a new ConfigMap for the config file.
+#     create: true
+#     # -- Content to assign to the new ConfigMap.  This is passed into `tpl` allowing for templating from values.
+#     content: |
+#       discovery.kubernetes "k8s_pods" {
+#         role = "pod"
+#       }
 
-      discovery.kubernetes "k8s_nodes" {
-        role = "node"
-      }
+#       discovery.kubernetes "k8s_nodes" {
+#         role = "node"
+#       }
 
-      prometheus.scrape "k8s_nodes" {
-        targets = discovery.kubernetes.k8s_nodes.targets
-        forward_to = [prometheus.remote_write.mimir.receiver]
-      }
+#       prometheus.scrape "k8s_nodes" {
+#         targets = discovery.kubernetes.k8s_nodes.targets
+#         forward_to = [prometheus.remote_write.mimir.receiver]
+#       }
 
-      prometheus.scrape "k8s_pods" {
-        targets = discovery.kubernetes.k8s_pods.targets
-        forward_to = [prometheus.remote_write.mimir.receiver]
-      }
+#       prometheus.scrape "k8s_pods" {
+#         targets = discovery.kubernetes.k8s_pods.targets
+#         forward_to = [prometheus.remote_write.mimir.receiver]
+#       }
 
-      prometheus.remote_write "mimir" {
-        endpoint {
-          url = "http://mimir-gateway.monitoring.svc.cluster.local/api/v1/push"
-          headers = {
-            "X-Scope-OrgID" = "_local",
-          }
-        }
-      }
+#       prometheus.remote_write "mimir" {
+#         endpoint {
+#           url = "http://mimir-gateway.monitoring.svc.cluster.local/api/v1/push"
+#           headers = {
+#             "X-Scope-OrgID" = "_local",
+#           }
+#         }
+#       }
 
-      loki.source.kubernetes "k8s_pods" {
-        targets = discovery.kubernetes.k8s_pods.targets
-        forward_to = [loki.write.default.receiver]
-      }
+#       loki.source.kubernetes "k8s_pods" {
+#         targets = discovery.kubernetes.k8s_pods.targets
+#         forward_to = [loki.write.default.receiver]
+#       }
 
-      loki.source.kubernetes "k8s_nodes" {
-        targets = discovery.kubernetes.k8s_nodes.targets
-        forward_to = [loki.write.default.receiver]
-      }
+#       loki.source.kubernetes "k8s_nodes" {
+#         targets = discovery.kubernetes.k8s_nodes.targets
+#         forward_to = [loki.write.default.receiver]
+#       }
 
-      loki.write "default" {
-        endpoint {
-          url = "http://loki-write.monitoring.svc.cluster.local:3100/loki/api/v1/push"
-          headers = {
-            "X-Scope-OrgID" = "_local",
-          }
+#       loki.write "default" {
+#         endpoint {
+#           url = "http://loki-write.monitoring.svc.cluster.local:3100/loki/api/v1/push"
+#           headers = {
+#             "X-Scope-OrgID" = "_local",
+#           }
 
-        }
-      } 
+#         }
+#       } 
 

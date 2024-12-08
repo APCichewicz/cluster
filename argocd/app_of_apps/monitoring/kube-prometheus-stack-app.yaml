@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-prometheus-stack
+  namespace: argocd
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  project: default
+  sources:
+    - repoURL: 'https://prometheus-community.github.io/helm-charts'
+      targetRevision: 66.3.1
+      chart: kube-prometheus-stack
+      helm:
+        releaseName: kube-prometheus-stack
+        values:
+          prometheus:
+            prometheusSpec:
+              remoteWrite:
+                - url: http://mimir-gateway.monitoring.svc.cluster.local/api/v1/push
+                  # Optional: add basic auth if configured in Mimir
+                  # basicAuth:
+                  #   username:
+                  #     name: mimir-basic-auth
+                  #     key: username
+                  #   password:
+                  #     name: mimir-basic-auth
+                  #     key: password
+          grafana:
+            enabled: false  # Since you're likely using the separate Grafana installation
+            forwardProxy:
+              enabled: false
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true 
