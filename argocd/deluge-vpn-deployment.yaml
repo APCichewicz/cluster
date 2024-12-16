@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deluge-vpn
+  namespace: default
+  labels:
+    app: deluge-vpn
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: deluge-vpn
+  template:
+    metadata:
+      labels:
+        app: deluge-vpn
+    spec:
+      containers:
+      - name: deluge-vpn
+        image: binhex/arch-delugevpn:latest
+        securityContext:
+          capabilities:
+            add: ["NET_ADMIN"]     # Required for VPN functionality
+        ports:
+        - containerPort: 8112      # Deluge WebUI
+          name: webui
+        - containerPort: 58846     # Deluge Daemon
+          name: daemon
+        - containerPort: 58946     # Incoming Torrent Port
+          name: torrent
+        env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: TZ
+          value: "UTC"            # Set your timezone
+        - name: VPN_ENABLED
+          value: "yes"
+        - name: VPN_USER
+          value: "9174 7498 5884 2076"
+        - name: VPN_PASS
+          value: "9174 7498 5884 2076"
+        - name: VPN_PROV
+          value: "custom"    
+        - name: VPN_CLIENT
+          value: "openvpn"
+        volumeMounts:
+        - name: config
+          mountPath: /config
+        - name: downloads
+          mountPath: /downloads
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: deluge-config-pvc
+      - name: downloads
+        persistentVolumeClaim:
+          claimName: deluge-downloads-pvc
+---
+# PVC for config
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: deluge-config-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn    # Adjust based on your storage class
+  resources:
+    requests:
+      storage: 1Gi
+---
+# PVC for downloads
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: deluge-downloads-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn    # Adjust based on your storage class
+  resources:
+    requests:
+      storage: 100Gi 

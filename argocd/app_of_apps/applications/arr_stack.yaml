@@ -1,0 +1,148 @@
+# Persistent Volumes for different media types
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: downloads-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 500Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: media-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 500Gi
+---
+# ConfigMap for OpenVPN configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openvpn-config
+data:
+  openvpn.conf: |
+    # Your OpenVPN configuration here
+---
+# Secret for VPN credentials
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vpn-credentials
+type: Opaque
+data:
+  username: base64encodedusername
+  password: base64encodedpassword
+---
+# DelugeVPN Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: delugevpn
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: delugevpn
+  template:
+    metadata:
+      labels:
+        app: delugevpn
+    spec:
+      containers:
+      - name: delugevpn
+        image: binhex/arch-delugevpn
+        securityContext:
+          privileged: true  # Required for VPN
+        volumeMounts:
+        - name: downloads
+          mountPath: /downloads
+        - name: vpn-config
+          mountPath: /config/openvpn
+        env:
+        - name: VPN_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: vpn-credentials
+              key: username
+        - name: VPN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: vpn-credentials
+              key: password
+      volumes:
+      - name: downloads
+        persistentVolumeClaim:
+          claimName: downloads-pvc
+      - name: vpn-config
+        configMap:
+          name: openvpn-config
+---
+# Sonarr Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sonarr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sonarr
+  template:
+    metadata:
+      labels:
+        app: sonarr
+    spec:
+      containers:
+      - name: sonarr
+        image: linuxserver/sonarr
+        volumeMounts:
+        - name: downloads
+          mountPath: /downloads
+        - name: tv-shows
+          mountPath: /tv
+        - name: config
+          mountPath: /config
+      volumes:
+      - name: downloads
+        persistentVolumeClaim:
+          claimName: downloads-pvc
+      - name: tv-shows
+        persistentVolumeClaim:
+          claimName: media-pvc
+      - name: config
+        persistentVolumeClaim:
+          claimName: sonarr-config-pvc
+---
+# Services
+apiVersion: v1
+kind: Service
+metadata:
+  name: delugevpn
+spec:
+  selector:
+    app: delugevpn
+  ports:
+  - port: 8112
+    targetPort: 8112
+    name: webui
+  - port: 58846
+    targetPort: 58846
+    name: daemon
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sonarr
+spec:
+  selector:
+    app: sonarr
+  ports:
+  - port: 8989
+    targetPort: 8989

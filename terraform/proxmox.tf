@@ -104,7 +104,7 @@ resource "proxmox_virtual_environment_vm" "k3s-worker" {
     datastore_id = "nas"
     file_id      = proxmox_virtual_environment_download_file.ubuntu_cloud_image.id
     file_format = "raw"
-    size = 32
+    size = 256
     interface = "scsi0"
   }
   disk {
