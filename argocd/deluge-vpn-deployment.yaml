@@ -35,6 +35,10 @@ spec:
           value: "1000"
         - name: TZ
           value: "UTC"            # Set your timezone
+        - name: LAN_NETWORK
+          value: "192.168.1.0/24"  # Adjust this to match your network
+        - name: NAME_SERVERS
+          value: "1.1.1.1,8.8.8.8"  
         - name: VPN_ENABLED
           value: "yes"
         - name: VPN_USER
@@ -65,7 +69,7 @@ metadata:
   name: deluge-config-pvc
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteO
   storageClassName: longhorn    # Adjust based on your storage class
   resources:
     requests:

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-helper
+spec:
+  containers:
+  - name: volume-helper
+    image: busybox
+    command: ["/bin/sh", "-c", "tail -f /dev/null"]  # Keeps container running
+    volumeMounts:
+    - name: config-volume
+      mountPath: /config
+  volumes:
+  - name: config-volume
+    persistentVolumeClaim:
+      claimName: deluge-config-pvc 
