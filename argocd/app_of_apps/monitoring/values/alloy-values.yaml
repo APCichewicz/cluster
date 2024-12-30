@@ -22,17 +22,17 @@ alloy:
 
       otelcol.processor.batch "demo_batch" {
         output {
-          metrics = [otelcol.exporter.prometheus.demo-prometheus.input]
-          logs    = [otelcol.exporter.loki.demo-loki.input]
+          metrics = [otelcol.exporter.prometheus.demo_prometheus.input]
+          logs    = [otelcol.exporter.loki.demo_loki.input]
         } 
       }
 
       otelcol.exporter.loki "demo_loki" {
-        forward_to = [loki.write.default.receiver]
+        forward_to = [loki.write.demo_loki.receiver]
       }
 
       otelcol.exporter.prometheus "demo_prometheus" {
-        forward_to = [prometheus.remote_write.demo-mimir.receiver]
+        forward_to = [prometheus.remote_write.demo_mimir.receiver]
       }
 
       prometheus.remote_write "demo_mimir" {
@@ -54,34 +54,4 @@ alloy:
         }
       } 
 
-
-
-      discovery.kubernetes "k8s_pods" {
-        role = "pod"
-      }
-
-      discovery.kubernetes "k8s_nodes" {
-        role = "node"
-      }
-
-
-      loki.source.kubernetes "k8s_pods" {
-        targets = discovery.kubernetes.k8s_pods.targets
-        forward_to = [loki.write.default.receiver]
-      }
-
-      loki.source.kubernetes "k8s_nodes" {
-        targets = discovery.kubernetes.k8s_nodes.targets
-        forward_to = [loki.write.default.receiver]
-      }
-
-      loki.write "default" {
-        endpoint {
-          url = "http://loki-write.monitoring.svc.cluster.local:3100/loki/api/v1/push"
-          headers = {
-            "X-Scope-OrgID" = "_local",
-          }
-
-        }
-      } 
 
