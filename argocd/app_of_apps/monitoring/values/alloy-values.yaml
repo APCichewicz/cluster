@@ -1,5 +1,12 @@
 
 alloy:
+  extraPorts:
+    - name: otelcol-grpc
+      port: 4317
+      targetPort: 4317
+    - name: otelcol-http
+      port: 4318
+      targetPort: 4318
   configMap:
     # -- Create a new ConfigMap for the config file.
     create: true
