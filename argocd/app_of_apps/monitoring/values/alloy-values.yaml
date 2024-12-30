@@ -5,6 +5,48 @@ alloy:
     create: true
     # -- Content to assign to the new ConfigMap.  This is passed into `tpl` allowing for templating from values.
     content: |
+      otelcol.receiver.otlp "demo-receiver" {
+        grpc {
+          endpoint = "127.0.0.1:4317"
+        }
+
+        http {
+          endpoint = "127.0.0.1:4318"
+        }
+
+        output {
+          metrics = [otelcol.processor.batch.example.input]
+          logs    = [otelcol.processor.batch.example.input]
+        }
+      }
+
+      otelcol.processor.batch "demo-batch" {
+        output {
+          metrics = [mimir.receiver.metrics.input]
+          logs    = [loki.write.default.receiver]
+        }
+      }
+      prometheus.remote_write "demo-mimir" {
+        endpoint {
+          url = "http://mimir-gateway.monitoring.svc.cluster.local/api/v1/push"
+          headers = {
+            "X-Scope-OrgID" = "demo",
+          }
+        }
+      }
+
+      loki.write "demo-loki" {
+        endpoint {
+          url = "http://loki-write.monitoring.svc.cluster.local:3100/loki/api/v1/push"
+          headers = {
+            "X-Scope-OrgID" = "demo",
+          }
+
+        }
+      } 
+
+
+
       discovery.kubernetes "k8s_pods" {
         role = "pod"
       }
@@ -13,24 +55,24 @@ alloy:
         role = "node"
       }
 
-#       prometheus.scrape "k8s_nodes" {
-#         targets = discovery.kubernetes.k8s_nodes.targets
-#         forward_to = [prometheus.remote_write.mimir.receiver]
-#       }
+      #       prometheus.scrape "k8s_nodes" {
+      #         targets = discovery.kubernetes.k8s_nodes.targets
+      #         forward_to = [prometheus.remote_write.mimir.receiver]
+      #       }
 
-#       prometheus.scrape "k8s_pods" {
-#         targets = discovery.kubernetes.k8s_pods.targets
-#         forward_to = [prometheus.remote_write.mimir.receiver]
-#       }
+      #       prometheus.scrape "k8s_pods" {
+      #         targets = discovery.kubernetes.k8s_pods.targets
+      #         forward_to = [prometheus.remote_write.mimir.receiver]
+      #       }
 
-#       prometheus.remote_write "mimir" {
-#         endpoint {
-#           url = "http://mimir-gateway.monitoring.svc.cluster.local/api/v1/push"
-#           headers = {
-#             "X-Scope-OrgID" = "_local",
-#           }
-#         }
-#       }
+            # prometheus.remote_write "mimir-demo" {
+            #   endpoint {
+            #     url = "http://mimir-gateway.monitoring.svc.cluster.local/api/v1/push"
+            #     headers = {
+            #       "X-Scope-OrgID" = "_local",
+            #     }
+            #   }
+            # }
 
       loki.source.kubernetes "k8s_pods" {
         targets = discovery.kubernetes.k8s_pods.targets
