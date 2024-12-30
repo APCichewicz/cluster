@@ -22,10 +22,19 @@ alloy:
 
       otelcol.processor.batch "demo-batch" {
         output {
-          metrics = [mimir.receiver.metrics.input]
-          logs    = [loki.write.default.receiver]
-        }
+          metrics = [otelcol.exporter.prometheus.demo-prometheus.input]
+          logs    = [otelcol.exporter.loki.demo-loki.input]
+        } 
       }
+
+      otelcol.exporter.loki "demo-loki" {
+        forward_to = [loki.write.default.receiver]
+      }
+
+      otelcol.exporter.prometheus "demo-prometheus" {
+        forward_to = [prometheus.remote_write.demo-mimir.receiver]
+      }
+
       prometheus.remote_write "demo-mimir" {
         endpoint {
           url = "http://mimir-gateway.monitoring.svc.cluster.local/api/v1/push"
