@@ -5,7 +5,7 @@ alloy:
     create: true
     # -- Content to assign to the new ConfigMap.  This is passed into `tpl` allowing for templating from values.
     content: |
-      otelcol.receiver.otlp "demo-receiver" {
+      otelcol.receiver.otlp "demo_receiver" {
         grpc {
           endpoint = "127.0.0.1:4317"
         }
@@ -15,27 +15,27 @@ alloy:
         }
 
         output {
-          metrics = [otelcol.processor.batch.example.input]
-          logs    = [otelcol.processor.batch.example.input]
+          metrics = [otelcol.processor.batch.demo_batch.input]
+          logs    = [otelcol.processor.batch.demo_batch.input]
         }
       }
 
-      otelcol.processor.batch "demo-batch" {
+      otelcol.processor.batch "demo_batch" {
         output {
           metrics = [otelcol.exporter.prometheus.demo-prometheus.input]
           logs    = [otelcol.exporter.loki.demo-loki.input]
         } 
       }
 
-      otelcol.exporter.loki "demo-loki" {
+      otelcol.exporter.loki "demo_loki" {
         forward_to = [loki.write.default.receiver]
       }
 
-      otelcol.exporter.prometheus "demo-prometheus" {
+      otelcol.exporter.prometheus "demo_prometheus" {
         forward_to = [prometheus.remote_write.demo-mimir.receiver]
       }
 
-      prometheus.remote_write "demo-mimir" {
+      prometheus.remote_write "demo_mimir" {
         endpoint {
           url = "http://mimir-gateway.monitoring.svc.cluster.local/api/v1/push"
           headers = {
@@ -44,7 +44,7 @@ alloy:
         }
       }
 
-      loki.write "demo-loki" {
+      loki.write "demo_loki" {
         endpoint {
           url = "http://loki-write.monitoring.svc.cluster.local:3100/loki/api/v1/push"
           headers = {
