@@ -1,0 +1,14 @@
+loki:
+  commonConfig:
+    replication_factor: 1
+  storage:
+    type: 'filesystem'
+
+deploymentMode: SingleBinary
+
+singleBinary:
+  replicas: 1
+
+# Disable minio storage
+minio:
+  enabled: false
