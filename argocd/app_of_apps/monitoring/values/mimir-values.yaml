@@ -11,10 +11,25 @@ mimir:
   structuredConfig:
     common:
       storage:
-        backend: filesystem
+        backend: azure
+        azure:
+          account_name: your_storage_account_name
+          account_key: ${AZURE_STORAGE_ACCOUNT_KEY}
+          container_name: your_container_name
+
     blocks_storage:
-      backend: filesystem
-    ruler_storage:
-      backend: filesystem
+      azure:
+        container_name: mimir-blocks
+
     alertmanager_storage:
-      backend: filesystem
+      azure:
+        container_name: mimir-alertmanager
+
+    ruler_storage:
+      azure:
+        container_name: mimir-ruler
+
+global:
+  extraEnvFrom:
+    - secretRef:
+        name: your-sealed-secret-name

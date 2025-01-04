@@ -1,0 +1,21 @@
+{
+  "kind": "SealedSecret",
+  "apiVersion": "bitnami.com/v1alpha1",
+  "metadata": {
+    "name": "mimir-blob-sa-key",
+    "namespace": "default",
+    "creationTimestamp": null
+  },
+  "spec": {
+    "template": {
+      "metadata": {
+        "name": "mimir-blob-sa-key",
+        "namespace": "default",
+        "creationTimestamp": null
+      }
+    },
+    "encryptedData": {
+      "AZURE_STORAGE_ACCOUNT_KEY": "AgAY3e/YS3PzdS5gdhhkIPGEc4HH8HtHGbiotFskc3sd9KhA00uEAUJW5dmtUdbD7jXky3R1nGyZO74K0pB16KP2OT0NxpBOfnuhTE9oyBj0Z54C8xBQKDJIAwiKaxpVoXAudkQsz+3JMQYFkvtCmv4mYaIWcdJDbYw7aoBQ+gVr7wu4RAOk+G6m3QOXlb0d3RKmeoff/iVan5SSxQgUTwAMqRxqyliza2xGyRi/N8AK5JWc8FaaTUHb3uuuerPcVFv/Oqhgj/zrf4ICWLpMp1TTd/LfDykKUrYkroGRylpcMnGG3k2muSvqJIYcvq87JbY6WLLtShZWgnX5fysFCJPKnw1B1ynMnxtzFmwyv5tbGIdcBFdZnGuIAQodlCUW3Qcx1FFCqcvGpfK5W34mmws37RMk+TaibrQFWeADWMu+vmk6CXXnE1kTLiuD7k1GlIV8Dzdsw0ibAeB7jpw8O78gnInC8ITOjTOVH8Evp9hRy4g+AIX01eUxWAt+m0TGP2WxirleEbR/8ZksTAwGscsPMWKXdltZqiSfTm9nUy+OP9LkqZoVOAOokbEq3SEMfSIq1I4haee0c239qfiN5bOFPWBgjoAI56+xuT5oNZs5BuP03phKPkj+W7255kMrv3hKd2+xcQ8dNBcRkcuKPGQQN5XaPXgfdCh8kCmAxeV2PNM+uxR7UnQU3zzeYRDpvwSFZi8uFUjil3WdW/UF1FDlSw0VoL+Je9rcR/OK+wWqv4Zi2O0hYvtBfOIrjLRJHKcdYOXozQseZ+RzbcWFeAU623XjrJLcprp4ZeqHEz1y4RKbM1hOgA9u"
+    }
+  }
+}
