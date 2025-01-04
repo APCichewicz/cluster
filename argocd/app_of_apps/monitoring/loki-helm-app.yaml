@@ -13,15 +13,15 @@ spec:
     - repoURL: 'https://github.com/APCichewicz/cluster.git'
       ref: values
     - repoURL: 'https://grafana.github.io/helm-charts'
-      targetRevision: 6.23.0
-      chart: loki # Path to your Helm chart in the repo
+      targetRevision: 0.80.0
+      chart: loki-distributed # Path to your Helm chart in the repo
       helm:
         # Release name (optional - defaults to application name)
         # releaseName: mimir
 
         # Values file overrides
-        valueFiles:
-          - $values/argocd/app_of_apps/monitoring/values/loki-values.yaml
+        # valueFiles:
+        #   - $values/argocd/app_of_apps/monitoring/values/loki-values.yaml
 
       # Sync policy
       syncPolicy:
