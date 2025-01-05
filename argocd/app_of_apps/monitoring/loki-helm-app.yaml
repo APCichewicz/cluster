@@ -13,8 +13,8 @@ spec:
     # - repoURL: 'https://github.com/APCichewicz/cluster.git'
     #   ref: values
     - repoURL: 'https://grafana.github.io/helm-charts'
-      targetRevision: 0.80.0
-      chart: loki-distributed # Path to your Helm chart in the repo
+      targetRevision: 6.21.0
+      chart: loki # Path to your Helm chart in the repo
       helm:
         # Release name (optional - defaults to application name)
         # releaseName: mimir

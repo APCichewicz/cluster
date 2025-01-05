@@ -1,13 +1,14 @@
 loki:
-  commonConfig:
-    replication_factor: 1
   storage:
-    type: 'filesystem'
+    type: azure
+    azure:
+      accountName: mimirmetrics
+      accountKey:  ${AZURE_STORAGE_ACCOUNT_KEY}
+  extraEnvFrom:
+    - secretRef:
+      name: mimir-blob-sa-key
 
-deploymentMode: SingleBinary
-
-singleBinary:
-  replicas: 1
+deploymentMode: SimpleScalable
 
 # Disable minio storage
 minio:
