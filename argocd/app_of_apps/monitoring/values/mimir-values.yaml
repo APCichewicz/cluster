@@ -35,4 +35,4 @@ mimir:
 global:
   extraEnvFrom:
     - secretRef:
-        name: 
+        name: mimir-blob-sa-key
