@@ -1,4 +1,13 @@
 loki:
+  schemaConfig:
+    configs:
+      - from: "2020-12-11"
+        index:
+          period: 24h
+          prefix: index_
+        object_store: azure
+        schema: v13
+        store: tsdb
   storage:
     bucketNames: 
       chunks: loki
