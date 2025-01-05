@@ -9,6 +9,7 @@ mimir:
   enterprise:
     enabled: false
   structuredConfig:
+    multitenancy_enabled: true
     common:
       storage:
         backend: azure

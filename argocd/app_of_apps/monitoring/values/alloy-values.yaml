@@ -46,7 +46,7 @@ alloy:
         endpoint {
           url = "http://mimir-gateway.monitoring.svc.cluster.local/api/v1/push"
           headers = {
-            "X-Scope-OrgID" = "demo",
+            X-Scope-OrgID = demo,
           }
         }
       }
@@ -55,7 +55,7 @@ alloy:
         endpoint {
           url = "http://loki-loki-distributed-gateway.monitoring.svc.cluster.local/loki/api/v1/push"
           headers = {
-            "X-Scope-OrgID" = "demo",
+            X-Scope-OrgID = demo,
           }
 
         }
