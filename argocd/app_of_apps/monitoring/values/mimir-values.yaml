@@ -15,8 +15,7 @@ mimir:
         azure:
           account_name: mimirmetrics
           account_key: ${AZURE_STORAGE_ACCOUNT_KEY}
-          container_name: mimir
-
+          endpoint_suffix: "blob.core.windows.net"
     blocks_storage:
       azure:
         container_name: mimir-blocks
