@@ -16,6 +16,8 @@ loki:
     azure:
       accountName: mimirmetrics
       accountKey:  ${AZURE_STORAGE_ACCOUNT_KEY}
+  extraArgs:
+    - "-config.expand-env=true"
   extraEnvFrom:
     - secretRef:
       name: mimir-blob-sa-key
