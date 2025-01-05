@@ -32,4 +32,4 @@ mimir:
 global:
   extraEnvFrom:
     - secretRef:
-        name: your-sealed-secret-name
+        name: mimir-blob-sa-key
