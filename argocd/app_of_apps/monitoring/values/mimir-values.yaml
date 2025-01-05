@@ -13,22 +13,26 @@ mimir:
       storage:
         backend: azure
         azure:
-          account_name: mimirmetrics
+          account_name: your_storage_account_name
           account_key: ${AZURE_STORAGE_ACCOUNT_KEY}
-          endpoint_suffix: "blob.core.windows.net"
+          container_name: your_container_name
+
     blocks_storage:
+      backend: azure
       azure:
         container_name: mimir-blocks
 
     alertmanager_storage:
+      backend: azure
       azure:
         container_name: mimir-alertmanager
 
     ruler_storage:
+      backend: azure
       azure:
         container_name: mimir-ruler
 
 global:
   extraEnvFrom:
     - secretRef:
-        name: mimir-blob-sa-key
+        name: 
