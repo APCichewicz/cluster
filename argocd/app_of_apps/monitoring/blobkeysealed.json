@@ -10,12 +10,12 @@
     "template": {
       "metadata": {
         "name": "mimir-blob-sa-key",
-        "namespace": "default",
+        "namespace": "monitoring",
         "creationTimestamp": null
       }
     },
     "encryptedData": {
-      "AZURE_STORAGE_ACCOUNT_KEY": "AgAY3e/YS3PzdS5gdhhkIPGEc4HH8HtHGbiotFskc3sd9KhA00uEAUJW5dmtUdbD7jXky3R1nGyZO74K0pB16KP2OT0NxpBOfnuhTE9oyBj0Z54C8xBQKDJIAwiKaxpVoXAudkQsz+3JMQYFkvtCmv4mYaIWcdJDbYw7aoBQ+gVr7wu4RAOk+G6m3QOXlb0d3RKmeoff/iVan5SSxQgUTwAMqRxqyliza2xGyRi/N8AK5JWc8FaaTUHb3uuuerPcVFv/Oqhgj/zrf4ICWLpMp1TTd/LfDykKUrYkroGRylpcMnGG3k2muSvqJIYcvq87JbY6WLLtShZWgnX5fysFCJPKnw1B1ynMnxtzFmwyv5tbGIdcBFdZnGuIAQodlCUW3Qcx1FFCqcvGpfK5W34mmws37RMk+TaibrQFWeADWMu+vmk6CXXnE1kTLiuD7k1GlIV8Dzdsw0ibAeB7jpw8O78gnInC8ITOjTOVH8Evp9hRy4g+AIX01eUxWAt+m0TGP2WxirleEbR/8ZksTAwGscsPMWKXdltZqiSfTm9nUy+OP9LkqZoVOAOokbEq3SEMfSIq1I4haee0c239qfiN5bOFPWBgjoAI56+xuT5oNZs5BuP03phKPkj+W7255kMrv3hKd2+xcQ8dNBcRkcuKPGQQN5XaPXgfdCh8kCmAxeV2PNM+uxR7UnQU3zzeYRDpvwSFZi8uFUjil3WdW/UF1FDlSw0VoL+Je9rcR/OK+wWqv4Zi2O0hYvtBfOIrjLRJHKcdYOXozQseZ+RzbcWFeAU623XjrJLcprp4ZeqHEz1y4RKbM1hOgA9u"
+      "AZURE_STORAGE_ACCOUNT_KEY": "AgBY8MAlzjgcj5e7/Tdr/jrkzTMw/c7QUrG81gzHtBeS1osTKnQS6Si/XBDBzMahTBE64x5ozhlRyIMID/ENCcSBJPExcHSIQ0HRnNe7XnXLZ0Ocm6GMNIL7Tis67wj5amIBX6IKqzNJm3LOHPCWQeD/AomQ3S/BUVY0sbTs2cU6pd71nLpntgtqhk6mJAlCtiIDzzOAUPfZQG2FD74oA50TpQZdUtofuQqzIZJX3AY1Xqg7yIglPSyv1X2qJqgp1GcmnPQSf7SXdVDJjeVv6p+plQ2ILil70FKcL4fgMYdx0AJwp45bPvQ0hNAxdAADk8xdCkfQOnM9JfJ/mnyB/GpaSUJd1z+P8/W76p1bdp7KFUg++p1Cz4HIkQW2K/VU5JqYhSuW2H536Yk9W0tp97YLctl+DcsEL029wpbc6pRpgM0028lPxJpD8s6mU1O4lhvjJP4dYfTWIw+GEFHa6C6/iJuv+WQAKsT/lgeGbZw/8xTEIAcl0ED/sgXhzE9fpgin6hY08hyfDo1A6kPpmceTAxwsIC1TaAo/bD/DLkwlCz+7ol1Ojayv/GYeBl280ZaBVZY8qOwwOx5/f/BO+tpz4aiu4H7MbOTMvwY3pHL1RXKiDwLoU22h4VXzdu1fIYz34XCU0sYjZfw8b0Q2iz1X0Ok3UMxTR2FrPxH3/1FKTLbdPcDxLyCmGY7t1usraHXpiFMDwFF1v89KMKAJHg19WK2Oggi3bBfGVYetJpXdwb+0pYZadonA91GkFv0m4+UbGqjafmD8PEDxnB7nEHPEpiTXp5b09PDWdSeTGrrpcW07uLS6peyJ"
     }
   }
 }
