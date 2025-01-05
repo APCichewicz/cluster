@@ -20,17 +20,9 @@ spec:
               remoteWrite:
                 - url: http://mimir-gateway.monitoring.svc.cluster.local/api/v1/push
                   headers:
-                    X-Scope-OrgID: "_local"
-                  # Optional: add basic auth if configured in Mimir
-                  # basicAuth:
-                  #   username:
-                  #     name: mimir-basic-auth
-                  #     key: username
-                  #   password:
-                  #     name: mimir-basic-auth
-                  #     key: password
+                    X-Scope-OrgID: _local
           grafana:
-            enabled: false  # Since you're likely using the separate Grafana installation
+            enabled: false  
             forwardProxy:
               enabled: false
   syncPolicy:
