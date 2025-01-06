@@ -11,7 +11,7 @@ loki:
   storage:
     bucketNames: 
       chunks: loki
-    ruler: loki-ruler
+      ruler: loki-ruler
     type: azure
     azure:
       accountName: mimirmetrics
