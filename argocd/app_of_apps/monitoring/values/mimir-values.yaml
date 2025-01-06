@@ -10,7 +10,7 @@ mimir:
     ingester_limits:
       max_inflight_push_requests: 250
       max_ingestion_rate: 30000
-      max_series: 1000000
+      max_series: 1000000 
   enterprise:
     enabled: false
   structuredConfig:
@@ -21,7 +21,7 @@ mimir:
         azure:
           account_name: mimirmetrics
           account_key: ${AZURE_STORAGE_ACCOUNT_KEY}
-          endpoint_suffix: "blob.core.windows.net"
+          endpoint_suffix: blob.core.windows.net
 
     blocks_storage:
       backend: azure
@@ -44,7 +44,7 @@ mimir:
     resources: {}
     zoneAwareReplication:
       enabled: false
-  compactor:
+  compactor: null
   replicas: 2
   persistentVolume:
     size: 10Gi
@@ -54,19 +54,27 @@ mimir:
     replicas: 3
     resources: {}
     initContainers:
-    - name: wait-metadata
-      image: busybox:1.28
-      imagePullPolicy: IfNotPresent
-      command: ['sh', '-c', 'until nslookup mimir-metadata-cache; do echo waiting for memcached; sleep 1; done']
+      - name: wait-metadata
+        image: busybox:1.28
+        imagePullPolicy: IfNotPresent
+        command:
+          - sh
+          - '-c'
+          - until nslookup mimir-metadata-cache; do echo waiting for memcached;
+            sleep 1; done
 
   query_frontend:
     replicas: 2
     resources: {}
     initContainers:
-    - name: wait-results
-      image: busybox:1.28
-      imagePullPolicy: IfNotPresent
-      command: ['sh', '-c', 'until nslookup mimir-results-cache; do echo waiting for memcached; sleep 1; done']
+      - name: wait-results
+        image: busybox:1.28
+        imagePullPolicy: IfNotPresent
+        command:
+          - sh
+          - '-c'
+          - until nslookup mimir-results-cache; do echo waiting for memcached;
+            sleep 1; done
 
   query_scheduler:
     replicas: 2
@@ -79,14 +87,22 @@ mimir:
     zoneAwareReplication:
       enabled: false
     initContainers:
-    - name: wait-metadata
-      image: busybox:1.28
-      imagePullPolicy: IfNotPresent
-      command: ['sh', '-c', 'until nslookup mimir-metadata-cache; do echo waiting for memcached; sleep 1; done']
-    - name: wait-chunks
-      image: busybox:1.28
-      imagePullPolicy: IfNotPresent
-      command: ['sh', '-c', 'until nslookup mimir-chunks-cache; do echo waiting for memcached; sleep 1; done']
+      - name: wait-metadata
+        image: busybox:1.28
+        imagePullPolicy: IfNotPresent
+        command:
+          - sh
+          - '-c'
+          - until nslookup mimir-metadata-cache; do echo waiting for memcached;
+            sleep 1; done
+      - name: wait-chunks
+        image: busybox:1.28
+        imagePullPolicy: IfNotPresent
+        command:
+          - sh
+          - '-c'
+          - until nslookup mimir-chunks-cache; do echo waiting for memcached;
+            sleep 1; done
 
   chunks-cache:
     enabled: true

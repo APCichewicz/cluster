@@ -15,7 +15,6 @@ spec:
       helm:
         releaseName: kube-prometheus-stack
         values: |
-          ---
           prometheus:
             prometheusSpec:
               remoteWrite:
