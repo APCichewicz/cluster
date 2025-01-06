@@ -6,6 +6,11 @@ gateway:
   enabledNonEnterprise: true
 
 mimir:
+  runtimeConfig:
+    ingester_limits:
+      max_inflight_push_requests: 250
+      max_ingestion_rate: 30000
+      max_series: 1000000
   enterprise:
     enabled: false
   structuredConfig:
@@ -32,7 +37,104 @@ mimir:
       backend: azure
       azure:
         container_name: mimir-ruler
+  ingester:
+    replicas: 3
+    persistentVolume:
+      size: 20Gi
+    resources: {}
+    zoneAwareReplication:
+      enabled: false
+  compactor:
+  replicas: 2
+  persistentVolume:
+    size: 10Gi
+  resources: {}
 
+  querier:
+    replicas: 3
+    resources: {}
+    initContainers:
+    - name: wait-metadata
+      image: busybox:1.28
+      imagePullPolicy: IfNotPresent
+      command: ['sh', '-c', 'until nslookup mimir-metadata-cache; do echo waiting for memcached; sleep 1; done']
+
+  query_frontend:
+    replicas: 2
+    resources: {}
+    initContainers:
+    - name: wait-results
+      image: busybox:1.28
+      imagePullPolicy: IfNotPresent
+      command: ['sh', '-c', 'until nslookup mimir-results-cache; do echo waiting for memcached; sleep 1; done']
+
+  query_scheduler:
+    replicas: 2
+
+  store_gateway:
+    replicas: 3
+    persistentVolume:
+      size: 10Gi
+    resources: {}
+    zoneAwareReplication:
+      enabled: false
+    initContainers:
+    - name: wait-metadata
+      image: busybox:1.28
+      imagePullPolicy: IfNotPresent
+      command: ['sh', '-c', 'until nslookup mimir-metadata-cache; do echo waiting for memcached; sleep 1; done']
+    - name: wait-chunks
+      image: busybox:1.28
+      imagePullPolicy: IfNotPresent
+      command: ['sh', '-c', 'until nslookup mimir-chunks-cache; do echo waiting for memcached; sleep 1; done']
+
+  chunks-cache:
+    enabled: true
+    replicas: 3
+    allocatedMemory: 1024
+    resources:
+      requests:
+        cpu: 25m
+
+  index-cache:
+    enabled: true
+    replicas: 3
+    allocatedMemory: 768
+    resources:
+      requests:
+        cpu: 25m
+
+  metadata-cache:
+    enabled: true
+    replicas: 1
+    allocatedMemory: 384
+    resources:
+      requests:
+        cpu: 25m
+
+  results-cache:
+    enabled: true
+    replicas: 2
+    allocatedMemory: 512
+    resources:
+      requests:
+        cpu: 25m
+
+  metaMonitoring:
+    serviceMonitor:
+      enabled: true
+      labels:
+        release: monitor
+    dashboards:
+      enabled: true
+      labels:
+        release: monitor
+    prometheusRule:
+      enabled: true
+      mimirAlerts: true
+      mimirRules: true
+      labels:
+        release: monitor
 global:
   extraEnvFrom:
     - secretRef:
