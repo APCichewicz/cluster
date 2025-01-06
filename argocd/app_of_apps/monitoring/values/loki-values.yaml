@@ -20,25 +20,25 @@ loki:
     - "-config.expand-env=true"
   extraEnvFrom:
     - secretRef:
-      name: mimir-blob-sa-key
+        name: mimir-blob-sa-key
 write:
   extraArgs:
     - "-config.expand-env=true"
   extraEnvFrom:
     - secretRef:
-      name: mimir-blob-sa-key
+        name: mimir-blob-sa-key
 read:
   extraArgs:
     - "-config.expand-env=true"
   extraEnvFrom:
     - secretRef:
-      name: mimir-blob-sa-key
+        name: mimir-blob-sa-key
 backend:
   extraArgs:
     - "-config.expand-env=true"
   extraEnvFrom:
     - secretRef:
-      name: mimir-blob-sa-key
+        name: mimir-blob-sa-key
   
   gateway:
     enabled: true
