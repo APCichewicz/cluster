@@ -19,9 +19,9 @@ spec:
         # Release name (optional - defaults to application name)
         releaseName: tempo
 
-        # # Values file overrides
-        valueFiles:
-          - $values/argocd/app_of_apps/monitoring/values/alloy-values.yaml
+        # # # Values file overrides
+        # valueFiles:
+        #   - $values/argocd/app_of_apps/monitoring/values/alloy-values.yaml
       # Sync policy
       syncPolicy:
         syncOptions:
