@@ -47,17 +47,17 @@ mimir:
       backend: azure
       azure:
         container_name: mimir-ruler
-  ingester:
-    replicas: 6
-    persistentVolume:
-      size: 20Gi
-    resources: {}
-    zoneAwareReplication:
-      enabled: false
-  distributor:
-    instance_limits:
-      max_ingestion_rate: 60000000
-      nax_inflight_push_requests: 3500
+ingester:
+  replicas: 3
+  persistentVolume:
+    size: 20Gi
+  resources: {}
+  zoneAwareReplication:
+    enabled: false
+distributor:
+  instance_limits:
+    max_ingestion_rate: 60000000
+    nax_inflight_push_requests: 3500
 
 
 
