@@ -10,7 +10,9 @@ mimir:
     ingester_limits:
       max_inflight_push_requests: 250
       max_ingestion_rate: 30000
-      max_series: 1000000 
+      max_series: 1000000
+    overrides:
+      max_global_series_per_user: 1500000
   enterprise:
     enabled: false
   structuredConfig:
