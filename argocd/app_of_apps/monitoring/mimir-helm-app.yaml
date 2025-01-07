@@ -42,7 +42,18 @@ spec:
                     account_name: mimirmetrics
                     account_key: ${AZURE_STORAGE_ACCOUNT_KEY}
                     endpoint_suffix: blob.core.windows.net
-
+              limits:
+                ingestion_rate: 30000 # Per-user rate limit
+                max_global_series_per_user: 1000000 # To accomodate one big tenant
+                max_global_series_per_metric: 100000
+                max_label_names_per_series: 100
+                cardinality_analysis_enabled: true
+                compactor_blocks_retention_period: 7d # Global Metrics TTL
+                query_ingesters_within: 4h # > query_store_after (default: 13h)
+                # Allow ingestion of out-of-order samples up to X minutes since the latest received sample for the series.
+                # https://grafana.com/docs/mimir/latest/operators-guide/configure/configure-out-of-order-samples-ingestion/
+                out_of_order_time_window: 15m
+                max_cache_freshness: 15m
               blocks_storage:
                 backend: azure
                 azure:
