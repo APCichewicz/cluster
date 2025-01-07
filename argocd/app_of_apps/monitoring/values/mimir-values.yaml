@@ -50,7 +50,7 @@ mimir:
 ingester:
   replicas: 3
   persistentVolume:
-    size: 200Gi
+    size: 100Gi
   resources: {}
   zoneAwareReplication:
     enabled: false
