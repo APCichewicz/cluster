@@ -6,13 +6,6 @@ gateway:
   enabledNonEnterprise: true
 
 mimir:
-  runtimeConfig:
-    ingester_limits:
-      max_inflight_push_requests: 250
-      max_ingestion_rate: 30000
-      max_series: 1000000
-    overrides:
-      max_global_series_per_user: 1500000
   enterprise:
     enabled: false
   structuredConfig:
@@ -39,6 +32,21 @@ mimir:
       backend: azure
       azure:
         container_name: mimir-ruler
+  runtimeConfig:
+    ingester_limits: # limits that each ingester replica enforces
+      max_ingestion_rate: 20000
+      max_series: 1500000
+      max_tenants: 1000
+      max_inflight_push_requests: 30000
+    distributor_limits: # limits that each distributor replica enforces
+      max_ingestion_rate: 20000
+      max_inflight_push_requests: 30000
+      max_inflight_push_requests_bytes: 50000000
+    overrides:
+      tenant-1: # limits for tenant-1 that the whole cluster enforces
+        ingestion_tenant_shard_size: 9
+        max_global_series_per_user: 1500000
+        max_fetched_series_per_query: 100000
   ingester:
     replicas: 3
     persistentVolume:
