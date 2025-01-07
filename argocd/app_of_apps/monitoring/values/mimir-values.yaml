@@ -9,6 +9,8 @@ mimir:
   enterprise:
     enabled: false
   structuredConfig:
+    querier:
+      query_store_after: 11h
     limits:
       max_global_series_per_user: 1500000
       ingestion_rate: 60000000
@@ -17,7 +19,6 @@ mimir:
       cardinality_analysis_enabled: true
       compactor_blocks_retention_period: 7d # Global Metrics TTL
       query_ingesters_within: 12h # > query_store_after (default: 13h)
-      query_store_after: 11h
       out_of_order_time_window: 15m
       max_cache_freshness: 15m
       
