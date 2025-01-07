@@ -16,9 +16,10 @@ mimir:
       max_label_names_per_series: 100
       cardinality_analysis_enabled: true
       compactor_blocks_retention_period: 7d # Global Metrics TTL
-      query_ingesters_within: 4h # > query_store_after (default: 13h)
+      query_ingesters_within: 12h # > query_store_after (default: 13h)
       out_of_order_time_window: 15m
       max_cache_freshness: 15m
+      
     multitenancy_enabled: true
     server:
       grpc_server_max_concurrent_streams: 10000
