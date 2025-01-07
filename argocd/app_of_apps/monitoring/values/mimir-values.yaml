@@ -11,7 +11,17 @@ mimir:
   structuredConfig:
     limits:
       max_global_series_per_user: 1500000
-    # multitenancy_enabled: true
+      ingestion_rate: 60000000
+      max_global_series_per_metric: 100000
+      max_label_names_per_series: 100
+      cardinality_analysis_enabled: true
+      compactor_blocks_retention_period: 7d # Global Metrics TTL
+      query_ingesters_within: 4h # > query_store_after (default: 13h)
+      out_of_order_time_window: 15m
+      max_cache_freshness: 15m
+    multitenancy_enabled: true
+    server:
+      grpc_server_max_concurrent_streams: 10000
     common:
       storage:
         backend: azure
@@ -34,13 +44,17 @@ mimir:
       backend: azure
       azure:
         container_name: mimir-ruler
-  ingester:
-    replicas: 3
-    persistentVolume:
-      size: 20Gi
-    resources: {}
-    zoneAwareReplication:
-      enabled: false
+    ingester:
+      replicas: 6
+      persistentVolume:
+        size: 20Gi
+      resources: {}
+      zoneAwareReplication:
+        enabled: false
+    distributor:
+      instance_limits:
+        max_ingestion_rate: 60000000
+        nax_inflight_push_requests: 3500
 
 
 
