@@ -11,7 +11,7 @@ mimir:
   structuredConfig:
     limits:
       max_global_series_per_user: 1500000
-    multitenancy_enabled: true
+    # multitenancy_enabled: true
     common:
       storage:
         backend: azure
