@@ -1,4 +1,7 @@
 ---
+serviceAccount: # There is no way to set an account per component
+  create: true
+  name: loki-sa
 loki:
   auth_enabled: true
   commonConfig:
@@ -75,17 +78,14 @@ test:
   enabled: false
 lokiCanary:
   enabled: false
-serviceAccount: # There is no way to set an account per component
-  create: true
-  name: loki-sa
 
 gateway:
   service:
     labels:
       prometheus.io/service-monitor: 'false' # nginx exporter unavailable
 
-  
-deploymentMode: SimpleScalable
+
+# deploymentMode: SimpleScalable
 
 # Disable minio storage
 minio:
