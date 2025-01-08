@@ -4,7 +4,7 @@ metadata:
   name: azure-blob
 provisioner: blob.csi.azure.com
 parameters:
-  containerName: <your-container-name>
+  containerName: volumes
   csi.storage.k8s.io/provisioner-secret-name: azure-secret
   csi.storage.k8s.io/provisioner-secret-namespace: kube-system
   csi.storage.k8s.io/node-stage-secret-name: azure-secret
