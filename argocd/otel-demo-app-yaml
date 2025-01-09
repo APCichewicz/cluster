@@ -12,20 +12,9 @@ spec:
     - repoURL: 'https://github.com/APCichewicz/cluster.git'
       ref: values
       targetRevision: HEAD
-      name: values  # Added name for referencing
     - repoURL: 'https://open-telemetry.github.io/opentelemetry-helm-charts'
       targetRevision: 0.33.8
       chart: opentelemetry-demo
       helm:
         valueFiles:
           - $values/argocd/app_of_apps/monitoring/values/otel-demo-values.yaml
-  # Moved syncPolicy to spec level
-  syncPolicy:
-    syncOptions:
-      - Validate=false
-      - CreateNamespace=true
-      - ServerSideApply=true
-      - RespectIgnoreDifferences=true
-    automated:
-      prune: false
-      selfHeal: false
