@@ -12,12 +12,12 @@ spec:
   sources:
     - repoURL: 'https://github.com/APCichewicz/cluster.git'
       ref: values
-    - repoURL: 'https://grafana.github.io/helm-charts'
+    - repoURL: 'https://github.com/open-telemetry/opentelemetry-helm-charts'
       targetRevision: 0.33.8
       chart: opentelemetry-demo # Path to your Helm chart in the repo
       helm:
-        # Release name (optional - defaults to application name)
-        releaseName: opentelemetry-demo
+        # # Release name (optional - defaults to application name)
+        # releaseName: opentelemetry-demo
 
         # Values file overrides
         valueFiles:
