@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: otel-demo
+  namespace: argocd
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: observability-demo   
+  project: default
+  # Helm-specific source configuration
+  sources:
+    - repoURL: 'https://github.com/APCichewicz/cluster.git'
+      ref: values
+    - repoURL: 'https://grafana.github.io/helm-charts'
+      targetRevision: 0.33.8
+      chart: alloy # Path to your Helm chart in the repo
+      helm:
+        # Release name (optional - defaults to application name)
+        releaseName: opentelemetry-demo
+
+        # Values file overrides
+        valueFiles:
+          - $values/argocd/app_of_apps/monitoring/values/otel-demo-values.yaml
+      # Sync policy
+      syncPolicy:
+        syncOptions:
+          - Validate=false
+          - CreateNamespace=true
+          - ServerSideApply=true
+          - RespectIgnoreDifferences=true
+        automated:
+          prune: false
+          selfHeal: false
