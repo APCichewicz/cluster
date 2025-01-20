@@ -38,19 +38,13 @@ mimir:
         backend: filesystem
 
     blocks_storage:
-      backend: azure
-      azure:
-        container_name: mimir-blocks
+      backend: filesystem
 
     alertmanager_storage:
-      backend: azure
-      azure:
-        container_name: mimir-alertmanager
+      backend: filesystem
 
     ruler_storage:
-      backend: azure
-      azure:
-        container_name: mimir-ruler
+      backend: filesystem
 
 alertmanager:
   persistentVolume:
