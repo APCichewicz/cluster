@@ -1,0 +1,48 @@
+loki:
+  schemaConfig:
+    configs:
+      - from: "2024-04-01"
+        store: tsdb
+        object_store: filesystem
+        schema: v13
+        index:
+          prefix: loki_index_
+          period: 24h
+  ingester:
+    chunk_encoding: snappy
+  tracing:
+    enabled: true
+  querier:
+    max_concurrent: 4
+
+  storage:
+    type: filesystem
+  storage_config:
+    filesystem:
+      directory: /tmp/loki/chunks
+
+
+deploymentMode: SimpleScalable
+
+write:
+  extraArgs:
+    - "-config.expand-env=true"
+  extraEnvFrom:
+    - secretRef:
+        name: mimir-blob-sa-key
+read:
+  extraArgs:
+    - "-config.expand-env=true"
+  extraEnvFrom:
+    - secretRef:
+        name: mimir-blob-sa-key
+backend:
+  extraArgs:
+    - "-config.expand-env=true"
+  extraEnvFrom:
+    - secretRef:
+        name: mimir-blob-sa-key
+
+# Disable minio storage
+minio:
+  enabled: false

@@ -1,5 +1,5 @@
 resource "proxmox_virtual_environment_vm" "k3s-server" {
-  count       = 3
+  count       = 1
   name        = "k3s-server-${count.index}"
   description = "Managed by Terraform"
   tags        = ["terraform", "ubuntu"]
@@ -70,7 +70,7 @@ resource "proxmox_virtual_environment_vm" "k3s-server" {
 }
 
 resource "proxmox_virtual_environment_vm" "k3s-worker" {
-  count       = 5
+  count       = 2
   name        = "k3s-worker-${count.index}"
   description = "Managed by Terraform"
   tags        = ["terraform", "ubuntu"]
@@ -92,27 +92,27 @@ resource "proxmox_virtual_environment_vm" "k3s-worker" {
   }
 
   cpu {
-    cores        = 4
+    cores        = 12
     type         = "x86-64-v2-AES"  # recommended for modern CPUs
   }
 
   memory {
-    dedicated = 16384
+    dedicated = 49512
   }
 
   disk {
     datastore_id = "nas"
     file_id      = proxmox_virtual_environment_download_file.ubuntu_cloud_image.id
     file_format = "raw"
-    size = 256
+    size = 4096
     interface = "scsi0"
   }
-  disk {
-    datastore_id = "nas"
-    size = 1024
-    interface = "scsi1"
-    file_format = "raw"
-  }
+  # disk {
+  #   datastore_id = "nas"
+  #   size = 1024
+  #   interface = "scsi1"
+  #   file_format = "raw"
+  # }
 
   initialization {
     ip_config {
