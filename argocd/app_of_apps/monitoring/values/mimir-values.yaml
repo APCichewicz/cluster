@@ -92,9 +92,10 @@ ingester:
   resources:
     limits:
       memory: 12Gi
+      cpu: 2
     requests:
-      cpu: 3.5
       memory: 8Gi
+      cpu: 2
   topologySpreadConstraints: {}
   affinity:
     podAntiAffinity:
