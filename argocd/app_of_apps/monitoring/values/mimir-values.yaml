@@ -87,20 +87,10 @@ ingester:
       requiredDuringSchedulingIgnoredDuringExecution:
         - labelSelector:
             matchExpressions:
-              - key: target
+              - key: role
                 operator: In
                 values:
-                  - ingester
-          topologyKey: 'kubernetes.io/hostname'
-        - labelSelector:
-            matchExpressions:
-              - key: app.kubernetes.io/component
-                operator: In
-                values:
-                  - ingester
-          topologyKey: 'kubernetes.io/hostname'
-  zoneAwareReplication:
-    topologyKey: 'kubernetes.io/hostname'
+                  - worker
 
 admin-cache:
   enabled: true
