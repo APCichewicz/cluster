@@ -91,6 +91,12 @@ ingester:
                 operator: In
                 values:
                   - worker
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - key: role
+          operator: In
+          values:
+            - worker
 
 admin-cache:
   enabled: true
