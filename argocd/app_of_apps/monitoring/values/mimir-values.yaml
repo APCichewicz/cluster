@@ -100,7 +100,7 @@ ingester:
                   - ingester
           topologyKey: 'kubernetes.io/hostname'
   zoneAwareReplication:
-    topologyKey: 'worker'
+        enabled: false
 
 admin-cache:
   enabled: true
