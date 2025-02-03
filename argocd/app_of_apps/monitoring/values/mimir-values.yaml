@@ -11,11 +11,15 @@ gateway:
       memory: 731Mi
 
 mimir:
+
   enterprise:
     enabled: false
   structuredConfig:
     querier:
       query_store_after: 11h
+    memberlist:
+      cluster_label: "mimir"
+      cluster_label_verification_disabled: true
     limits:
       max_global_series_per_user: 1500000
       ingestion_rate: 60000000

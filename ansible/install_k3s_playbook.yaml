@@ -4,7 +4,7 @@
   hosts: control_plane
   become: true
   vars:
-    static_ip: "192.168.1.100"
+    static_ip: "192.168.1.120"
     k3s_token: "secret"
   gather_facts: false
   tasks:
@@ -27,13 +27,6 @@
     - name: install k3s on other control plane nodes
       when: inventory_hostname != 'k3s-server-1'
       shell: |
-        # if path /usr/local/bin/k3s-uninstall.sh exists, then k3s is installed. run uninstall.sh
-        if [ -f /usr/local/bin/k3s-uninstall.sh ]; then
-          echo "k3s is installed"
-          sudo /usr/local/bin/k3s-uninstall.sh
-        else
-          echo "k3s is not installed"
-        fi
         curl -sfL https://get.k3s.io | K3S_TOKEN={{ k3s_token }} sh -s - server \
         --server https://{{ static_ip }}:6443 \
         --disable=traefik
@@ -129,4 +122,3 @@
         state: present
         src: https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
         namespace: argocd 
-   
