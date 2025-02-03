@@ -67,7 +67,7 @@ compactor:
       memory: 2.1Gi
 
 distributor:
-  replicas: 1
+  replicas: 2
   resources:
     limits:
       cpu: 3.5
@@ -80,7 +80,7 @@ ingester:
   persistentVolume:
     enabled: true
     size: 100Gi
-  replicas: 1
+  replicas: 3
   resources:
     limits:
       memory: 12Gi
@@ -158,7 +158,7 @@ ruler:
 store_gateway:
   persistentVolume:
     size: 10Gi
-  replicas: 1
+  replicas: 3
   resources:
     limits:
       cpu: 1.4
