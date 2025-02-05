@@ -8,11 +8,11 @@ metadata:
 spec:
   project: default
   sources:
-    - chart: metallb
+    - chart: 
       repoURL: https://charts.jetstack.io
       targetRevision: 1.17.0
       helm:
-        values: |
+        values: cert-manager
           replicaCount: 3
           installCRDs: true
           extraArgs:
