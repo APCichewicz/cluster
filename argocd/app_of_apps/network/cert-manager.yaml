@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  project: default
+  sources:
+    - chart: metallb
+      repoURL: https://charts.jetstack.io --force-update 
+      targetRevision: 1.17.0
+      helm:
+        values: |
+          replicaCount: 3
+          installCRDs: true
+          extraArgs:
+            - --dns01-recursive-nameservers=1.1.1.1:53,9.9.9.9:53
+            - --dns01-recursive-nameservers-only
+          podDnsPolicy: None
+          podDnsConfig:
+            nameservers:
+              - 1.1.1.1
+              - 9.9.9.9
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cert-manager
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
