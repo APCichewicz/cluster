@@ -8,7 +8,8 @@ spec:
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
-  commonName: "*.local.001083.xyz"
+  commonName: "001083.xyz"
   dnsNames:
-  - "local.001083.xyz"
-  - "*.local.001083.xyz"
+  - "001083.xyz"
+  - "*.001083.xyz"
+  useDNS01Solver: true
