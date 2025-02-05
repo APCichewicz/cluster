@@ -8,11 +8,11 @@ metadata:
 spec:
   project: default
   sources:
-    - chart: 
+    - chart: cert-manager
       repoURL: https://charts.jetstack.io
       targetRevision: 1.17.0
       helm:
-        values: cert-manager
+        values: |
           replicaCount: 3
           installCRDs: true
           extraArgs:
@@ -23,8 +23,6 @@ spec:
             nameservers:
               - 1.1.1.1
               - 9.9.9.9
-          crds:
-            enabled: true
 
   destination:
     server: https://kubernetes.default.svc
