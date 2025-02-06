@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: longhorn
+  namespace: argocd
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: longhorn-system
+  project: default
+  # Helm-specific source configuration
+  sources:
+    - repoURL: 'https://actions-runner-controller.github.io/actions-runner-controller'
+      targetRevision: 0.23.7
+      chart: actions-runner-controller # Path to your Helm chart in the repo
+
+      # Sync policy
+      syncPolicy:
+        syncOptions:
+          - Validate=false
+          - CreateNamespace=true
+          - ServerSideApply=true
+          - RespectIgnoreDifferences=true
+        automated:
+          prune: false
+          selfHeal: false
