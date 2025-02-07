@@ -7,4 +7,5 @@ spec:
   replicas: 1
   template:
     spec:
-      repository: apcichewicz/cluster
+      repository: APCichewicz/cluster
+
