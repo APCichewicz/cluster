@@ -12,7 +12,11 @@ spec:
   sources:
     - repoURL: 'https://actions-runner-controller.github.io/actions-runner-controller'
       targetRevision: 0.23.7
-      chart: actions-runner-controller # Path to your Helm chart in the repo
+      chart: actions-runner-controller
+      helm:
+        values: |
+          authSecret:
+            name: github-pat
 
       # Sync policy
       syncPolicy:

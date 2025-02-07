@@ -1,0 +1,15 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: github-pat
+  namespace: default
+spec:
+  encryptedData:
+    github_token: AgBnoif0C8r8sLrHuy90BuX68yuu/RdOwW+4JxitV7laSgZU7N6a7YpSFS3A+orX+TUElsLSlB/zPViHKoU234+XfgAd4skSXcEDI08XPEhmdBJ1zbqN9KLvFXhLpsSNyRsNjOT9NgkVwxg1tD+qdE48KLv6BhZRCe5ylIQAJo8wORekKeTO2EBebm+IF4c/epGO+bWFi0mTjWwU1cmyjnWxDW+tNpEKL6/pCOiqSBsm/scAzrjoglxnbcKz7STugDRrp8g1C3Vr7jmLbUMIx6K5dcCvluuJzMGTJP4IA4BJSKOnVGtaqo95ZcqTmilvsUbTQvbOzaNBUhJSxIJ6ksZlHmIiLcI8rMyXqyUy7l73A19zDQz1elB/a29EE2isEes5zNWOtAUZhhPP53JK1+lgZemWJKgiNFPhQsO3YC+NrwlCyVWrtuOysJxkW8gNtjlxsaJWnzoj4WCJURbUBl5KtSrKsabjL43MrCR5tMTrBBDpw96AEU0JYu5UKR145gp9rlTxiq7rSQ+e7B4TtznvJJQrB+UoWpgdZaowH/8OhQq9Iv60BSrbdaEg8opJphV8qUiTpWPguzfZ9mJy1iRf7OvzXuKWQ9tMbhRA5NOL03mcpIQZ1ck4lBsSsPTzS00QPLqbv+KHKr4WevELBVx4wv0d3nA9tn1N6L0rlTQuw7ffc1NyqjyQFQu2a8G9g/MNBGoMh6LYhZbWnDcuJhulPJmBgYTtgYnIkgkdORAtZEPGXU9+dVhv
+  template:
+    metadata:
+      creationTimestamp: null
+      name: github-pat
+      namespace: default
