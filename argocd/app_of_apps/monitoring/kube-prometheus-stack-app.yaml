@@ -27,7 +27,7 @@ spec:
                   maxShards: 50
                   maxSamplesPerSend: 1000
           grafana:
-            enabled: false  
+            enabled: 
             forwardProxy:
               enabled: false
   syncPolicy:

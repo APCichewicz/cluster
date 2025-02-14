@@ -1,0 +1,10 @@
+sidecar:
+  dashboards:
+    enabled: true
+    label: grafana_dashboard
+    searchNamespace: all
+  datasources:
+    enabled: true
+    label: grafana_datasource
+    searchNamespace: all
+
