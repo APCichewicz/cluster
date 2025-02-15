@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana-config
+  namespace: argocd
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  project: default
+  # Helm-specific source configuration
+  sources:
+    - repoURL: 'https://github.com/APCichewicz/cluster.git'
+      path: argocd/app_of_apps/monitoring/grafana
+      targetRevision: HEAD
+    
+      # Sync policy
+      syncPolicy:
+        syncOptions:
+          - Validate=false
+          - CreateNamespace=true
+          - ServerSideApply=true
+          - RespectIgnoreDifferences=true
+        automated:
+          prune: false
+          selfHeal: false
