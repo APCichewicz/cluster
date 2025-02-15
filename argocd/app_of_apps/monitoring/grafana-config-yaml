@@ -8,7 +8,6 @@ spec:
     server: https://kubernetes.default.svc
     namespace: monitoring
   project: default
-  # Helm-specific source configuration
   sources:
     - repoURL: 'https://github.com/APCichewicz/cluster.git'
       path: argocd/app_of_apps/monitoring/grafana
