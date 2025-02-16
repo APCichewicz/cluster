@@ -1,3 +1,7 @@
+rbac:
+  create: true
+adminUser: admin
+adminPassword: admin
 sidecar:
   dashboards:
     enabled: true
