@@ -2,6 +2,7 @@
     "ansible.python.interpreterPath": "/opt/homebrew/bin/python3",
     "yaml.schemas": {
         "kubernetes": "*.yaml",
-        "https://json.schemastore.org/yamllint.json": "file:///Users/andrewcichewicz/repos/cluster/argocd/app_of_apps/monitoring/values/mimir-values.yaml"
+        "https://json.schemastore.org/yamllint.json": "file:///Users/andrewcichewicz/repos/cluster/argocd/app_of_apps/monitoring/values/mimir-values.yaml",
+        "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.22.4-standalone-strict/all.json": "file:///Users/andrewcichewicz/repos/cluster/argocd/app_of_apps/monitoring/grafana/kustomization.yaml"
     }
 }

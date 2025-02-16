@@ -22,7 +22,6 @@ spec:
         # Values file overrides
         valueFiles:
           - $values/argocd/app_of_apps/monitoring/values/loki-values.yaml
-
       # Sync policy
       syncPolicy:
         syncOptions:
