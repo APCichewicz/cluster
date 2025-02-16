@@ -13,7 +13,6 @@ data:
         type: prometheus
         url: http://mimir-gateway.monitoring.svc.cluster.local/prometheus
         access: proxy
-        isDefault: true
         jsonData:
           httpHeaderName1: "X-Scope-OrgID"
         secureJsonData:
