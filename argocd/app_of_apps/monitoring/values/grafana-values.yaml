@@ -2,9 +2,16 @@ sidecar:
   dashboards:
     enabled: true
     label: grafana_dashboard
-    searchNamespace: all
+    labelValue: 1
+    searchNamespace: ALL
+    provider:
+      allowuiupdates: false
+      foldersFromFilesStructure: true
   datasources:
     enabled: true
     label: grafana_datasource
-    searchNamespace: all
-
+    labelValue: 1
+    searchNamespace: ALL
+    provider:
+      allowuiupdates: false
+      foldersFromFilesStructure: true
