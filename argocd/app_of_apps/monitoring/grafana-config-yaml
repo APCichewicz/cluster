@@ -4,22 +4,15 @@ metadata:
   name: grafana-config
   namespace: argocd
 spec:
+  project: default
+  source:
+    repoURL: https://github.com/APCichewicz/cluster.git
+    path: argocd/app_of_apps/monitoring/grafana
+    targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
-  project: default
-  sources:
-    - repoURL: 'https://github.com/APCichewicz/cluster.git'
-      path: argocd/app_of_apps/monitoring/grafana
-      targetRevision: HEAD
-    
-      # Sync policy
-      syncPolicy:
-        syncOptions:
-          - Validate=false
-          - CreateNamespace=true
-          - ServerSideApply=true
-          - RespectIgnoreDifferences=true
-        automated:
-          prune: false
-          selfHeal: false
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
