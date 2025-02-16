@@ -21,26 +21,6 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kubeblocks-crds
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/apecloud/kubeblocks
-    targetRevision: HEAD
-    path: 'releases/tag/v0.9.2/kubeblocks_crds.yaml'
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: kubeblocks
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - Validate=false
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
   name: kubeblocks
 spec:
   project: default
