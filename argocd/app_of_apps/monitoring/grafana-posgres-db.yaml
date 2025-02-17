@@ -1,4 +1,4 @@
-apiVersion: apps.kubeblocks.io/v1
+apiVersion: apps.kubeblocks.io
 kind: Cluster
 metadata:
   name: grafana-postgres-db
