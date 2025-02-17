@@ -5,7 +5,7 @@ metadata:
   namespace: monitoring
 spec:
   terminationPolicy: Delete
-  clusterDef: postgresql
+  clusterDefinitionRef: postgresql
   topology: replication
   componentSpecs:
     - name: postgresql
