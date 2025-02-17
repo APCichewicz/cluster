@@ -6,7 +6,6 @@ metadata:
 spec:
   terminationPolicy: Delete
   clusterDefinitionRef: postgresql
-  topology: replication
   componentSpecs:
     - name: postgresql
       serviceVersion: "14.7.2"
