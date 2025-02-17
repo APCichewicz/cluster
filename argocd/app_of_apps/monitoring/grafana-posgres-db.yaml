@@ -1,8 +1,8 @@
-apiVersion: apps.kubeblocks.io/v1
+apiVersion: apps.kubeblocks.io/v1alpha1
 kind: Cluster
 metadata:
-  name: mycluster
-  namespace: demo
+  name: grafana-postgres-db
+  namespace: monitoring
 spec:
   terminationPolicy: Delete
   clusterDef: postgresql
@@ -13,7 +13,7 @@ spec:
       disableExporter: false
       labels:
         # Note: DO NOT REMOVE THIS LABEL
-        apps.kubeblocks.postgres.patroni/scope: mycluster-postgresql
+        apps.kubeblocks.postgres.patroni/scope: grafana-postgres-db-postgresql
       replicas: 2
       resources:
         limits:
