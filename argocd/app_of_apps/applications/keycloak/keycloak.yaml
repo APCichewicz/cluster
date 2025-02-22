@@ -10,7 +10,7 @@ spec:
       path: argocd/app_of_apps/applications/keycloak
       targetRevision: HEAD
     - repoURL: https://charts.bitnami.com/bitnami
-      targetRevision: 24.4.10
+      targetRevision: 24.4.9
       chart: keycloak
       helm:
         releaseName: keycloak
