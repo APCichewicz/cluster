@@ -2,16 +2,20 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: keycloak
+  namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: https://charts.bitnami.com/bitnami
-    targetRevision: 24.4.10
-    chart: keycloak
-    helm:
-      releaseName: keycloak
-      valuesFiles:
-        - values.yaml
+  sources:
+    - repoURL: https://github.com/APCichewicz/cluster.git
+      path: argocd/app_of_apps/applications/keycloak
+      targetRevision: HEAD
+    - repoURL: https://charts.bitnami.com/bitnami
+      targetRevision: 24.4.10
+      chart: keycloak
+      helm:
+        releaseName: keycloak
+        valuesFiles:
+          - values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: keycloak
