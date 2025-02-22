@@ -7,15 +7,14 @@ spec:
   project: default
   sources:
     - repoURL: https://github.com/APCichewicz/cluster.git
-      path: argocd/app_of_apps/applications/keycloak
-      targetRevision: HEAD
+      ref: values
     - repoURL: https://charts.bitnami.com/bitnami
       targetRevision: 24.4.9
       chart: keycloak
       helm:
         releaseName: keycloak
         valuesFiles:
-          - values.yaml
+          - $values/argocd/app_of_apps/applications/keycloak/keycloak-values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: keycloak
