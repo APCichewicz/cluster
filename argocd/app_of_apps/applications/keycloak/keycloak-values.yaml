@@ -8,3 +8,6 @@ externalDatabase:
   existingSecretUserKey: "username"
   existingSecretPasswordKey: "password"
   database: "keycloak"
+auth:
+  adminPassword: "admin"
+  adminUsername: "admin"
