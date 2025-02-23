@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: grafanaConfig
+  name: grafana-config
   namespace: argocd
 spec:
   project: default
