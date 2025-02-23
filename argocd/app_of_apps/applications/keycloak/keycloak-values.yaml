@@ -1,0 +1,10 @@
+extraEnvVarsSecret:
+postgresql:
+  enabled: false
+externalDatabase:
+  host: keycloak-postgres-db-postgresql # The KubeBlocks service name
+  port: 5432
+  existingSecret: "keycloak-postgres-db-postgresql-account-kbadmin"
+  existingSecretUserKey: "username"
+  existingSecretPasswordKey: "password"
+  database: "keycloak" # The database name you want to use
