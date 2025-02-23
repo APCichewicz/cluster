@@ -10,3 +10,4 @@
 auth:
   adminPassword: "admin"
   adminUsername: "admin"
+production: true
