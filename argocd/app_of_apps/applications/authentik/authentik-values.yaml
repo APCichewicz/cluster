@@ -1,0 +1,17 @@
+authentik:
+  secret_key: "PleaseGenerateASecureKey"
+  # This sends anonymous usage-data, stack traces on errors and
+  # performance data to sentry.io, and is fully opt-in
+  error_reporting:
+    enabled: false
+  postgresql:
+    password: Env://authentik_postgresql_password
+server:
+  ingress:
+    enabled: false
+postgresql:
+  enabled: false
+  auth:
+    password: Env://authentik_postgresql_password
+redis:
+  enabled: false
