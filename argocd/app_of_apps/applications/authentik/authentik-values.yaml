@@ -1,17 +1,66 @@
+global:
+  env:
+    - name: postgres-password
+      valueFrom:
+        secretKeyRef:
+          name: authentik-conn-credential
+          key: password
+    - name: redis-password
+      valueFrom:
+        secretKeyRef:
+          name: authentik-redis-conn-credential
+          key: password
+    - name: postgres-host
+      valueFrom:
+        secretKeyRef:
+          name: authentik-conn-credential
+          key: host
+    - name: postgres-port
+      valueFrom:
+        secretKeyRef:
+          name: authentik-conn-credential
+          key: port
+    - name: postgres-user
+      valueFrom:
+        secretKeyRef:
+          name: authentik-conn-credential
+          key: user
+    - name: redis-host
+      valueFrom:
+        secretKeyRef:
+          name: authentik-redis-conn-credential
+          key: host
+    - name: redis-port
+      valueFrom:
+        secretKeyRef:
+          name: authentik-redis-conn-credential
+          key: port
+    - name: redis-user
+      valueFrom:
+        secretKeyRef:
+          name: authentik-redis-conn-credential
+          key: user
 authentik:
+  bootstrap_token:
+  bootstrap_password: test
   secret_key: "PleaseGenerateASecureKey"
   # This sends anonymous usage-data, stack traces on errors and
   # performance data to sentry.io, and is fully opt-in
   error_reporting:
     enabled: false
   postgresql:
-    password: Env://authentik_postgresql_password
+    password: Env://postgres-password
+    host: Env://postgres-host
+    name: authentik
+    port: Env://postgres-port
+    user: Env://postgres-user
+  redis:
+    password: Env://redis-password
+    host: Env://redis-host
 server:
   ingress:
     enabled: false
 postgresql:
   enabled: false
-  auth:
-    password: Env://authentik_postgresql_password
 redis:
   enabled: false
