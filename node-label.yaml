@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: Node
-metadata:
-  name: k3s-worker-1
-  labels:
-    node-role/storage: "true" 

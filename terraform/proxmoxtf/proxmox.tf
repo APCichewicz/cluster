@@ -1,12 +1,16 @@
 resource "proxmox_virtual_environment_vm" "k3s-server" {
-  count       = 0
+  count       = 3
   name        = "k3s-server-${count.index}"
   description = "Managed by Terraform"
   tags        = ["terraform", "ubuntu"]
 
   node_name = "pve"
   vm_id     = 4321 + count.index
-
+  clone {
+    vm_id     = 9000
+    full      = true
+    retries   = 25
+  }
   agent {
     # read 'Qemu guest agent' section, change to true only when ready
     enabled = false
@@ -26,14 +30,14 @@ resource "proxmox_virtual_environment_vm" "k3s-server" {
   }
 
   memory {
-    dedicated = 8192
+    dedicated = 4096
   }
 
   disk {
     datastore_id = "nas"
-    file_id      = proxmox_virtual_environment_download_file.ubuntu_cloud_image.id
+    # file_id      = proxmox_virtual_environment_download_file.ubuntu_cloud_image.id
     file_format = "raw"
-    size = 32
+    size = 64
     interface = "scsi0"
   }
 
@@ -78,10 +82,23 @@ resource "proxmox_virtual_environment_vm" "k3s-worker" {
   node_name = "pve"
   vm_id     = 4341 + count.index
 
-  agent {
-    # read 'Qemu guest agent' section, change to true only when ready
-    enabled = false
+  clone {
+    vm_id     = 9000
+    full      = true
+    retries   = 25     # Proxmox errors with timeout when creating multiple clones at once
   }
+
+  #   dynamic "hostpci" {
+  #   for_each = { for device in each.value.devices : device.mapping => device if device.type == "pci" }
+  #   content {
+  #     device  = "hostpci${hostpci.key}"  # `key` from for_each is used for the index
+  #     mapping = hostpci.value.mapping
+  #     pcie    = true
+  #     mdev    = try(hostpci.value.mdev, null) != "" ? hostpci.value.mdev : null
+  #     rombar  = hostpci.value.rombar
+  #   }
+  # }
+
   # if agent is not enabled, the VM may not be able to shutdown properly, and may need to be forced off
   stop_on_destroy = true
 
@@ -93,18 +110,18 @@ resource "proxmox_virtual_environment_vm" "k3s-worker" {
 
   cpu {
     cores        = 8
-    type         = "x86-64-v2-AES"  # recommended for modern CPUs
+    type         = "host"  # recommended for modern CPUs
   }
 
   memory {
-    dedicated = 49512
+    dedicated = 32768
   }
 
   disk {
     datastore_id = "nas"
-    file_id      = proxmox_virtual_environment_download_file.ubuntu_cloud_image.id
+    # file_id      = proxmox_virtual_environment_download_file.ubuntu_cloud_image.id
     file_format = "raw"
-    size = 2048
+    size = 3072
     interface = "scsi0"
   }
   # disk {

@@ -7,7 +7,10 @@ spec:
   project: default
   source:
     repoURL: https://github.com/APCichewicz/cluster.git
-    path: 'argocd/app_of_apps/k8s_infra'
+    path: argocd/app_of_apps/k8s_infra
+    targetRevision: HEAD
+    directory:
+      recurse: true
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
