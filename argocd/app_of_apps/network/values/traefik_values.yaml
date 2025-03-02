@@ -13,11 +13,12 @@ deployment:
 ports:
   web:
     port: 80
-    redirectTo:
-      port: websecure
-      priority: 10
+    hostPort: 80
+    targetPort: 8080
   websecure:
     port: 443
+    hostPort: 443
+    targetPort: 8443
     tls:
       enabled: true
 ingressRoute:
