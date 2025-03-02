@@ -51,5 +51,9 @@ service:
   externalIPs: []
 securityContext:
   capabilities:
-    add:
-      - NET_BIND_SERVICE
+    drop: [ALL]
+    add: [NET_BIND_SERVICE]
+  readOnlyRootFilesystem: true
+  runAsGroup: 0
+  runAsNonRoot: false
+  runAsUser: 0
