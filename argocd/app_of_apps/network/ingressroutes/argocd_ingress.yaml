@@ -3,7 +3,7 @@ kind: IngressRoute
 metadata:
   name: argocd-dashboard
   namespace: traefik
-  annotations: 
+  annotations:
     kubernetes.io/ingress.class: traefik-external
 spec:
   entryPoints:
@@ -12,9 +12,9 @@ spec:
     - match: Host(`argocd.local.001083.xyz`)
       kind: Rule
       services:
-        - name: argocd-server
+        - name: argo-argocd-server
           namespace: argocd
           kind: Service
           port: 443
   tls:
-   secretName: local-001083-xyz-tls-prod
+    secretName: local-001083-xyz-tls-prod
