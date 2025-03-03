@@ -1,5 +1,5 @@
 envFromSecrets:
-  - name: grafana-postgres-db-postgresql-account-kbadmin
+  - name: grafana-postgres-db-postgresql-account-postgres
     prefix: POSTGRES_
     optional: false
 rbac:
