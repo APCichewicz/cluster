@@ -24,7 +24,7 @@ global:
       valueFrom:
         secretKeyRef:
           name: authentik-conn-credential
-          key: user
+          key: username
     - name: AUTHENTIK_REDIS__HOST
       valueFrom:
         secretKeyRef:
