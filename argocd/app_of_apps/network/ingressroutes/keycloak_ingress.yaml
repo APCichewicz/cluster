@@ -9,7 +9,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`keycloak.local.001083.xyz`)
+    - match: Host(`authentik.local.001083.xyz`)
       kind: Rule
       services:
         - name: authentik-app-server
