@@ -39,7 +39,7 @@ global:
       valueFrom:
         secretKeyRef:
           name: authentik-redis-conn-credential
-          key: user
+          key: username
 authentik:
   secret_key: "PleaseGenerateASecureKey"
   bootstrap_token: ""
@@ -48,16 +48,16 @@ authentik:
   # performance data to sentry.io, and is fully opt-in
   error_reporting:
     enabled: false
-  # We don't need to define these since we're using environment variables
-  # postgresql:
-  #   password: ""
-  #   host: ""
-  #   name: "authentik"
-  #   port: ""
-  #   user: ""
-  # redis:
-  #   password: ""
-  #   host: ""
+    # We don't need to define these since we're using environment variables
+    # postgresql:
+    #   password: ""
+    #   host: ""
+    #   name: "authentik"
+    #   port: ""
+    #   user: ""
+    # redis:
+    #   password: ""
+    #   host: ""
 server:
   ingress:
     enabled: false
