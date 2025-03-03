@@ -2,6 +2,9 @@ envFromSecrets:
   - name: grafana-postgres-db-postgresql-account-postgres
     prefix: POSTGRES_
     optional: false
+  - name: grafana-auth-secret
+    prefix: AUTHENTIK_
+    optional: false
 rbac:
   create: true
 adminUser: admin
@@ -30,3 +33,11 @@ grafana.ini:
     name: grafana
     user: ${POSTGRES_username}
     password: ${POSTGRES_password}
+  auth:
+    generic_oauth:
+      enabled: true
+      client_id: rtrMrSqlL8TRZR6sEiiU8glYU1rlLBLtYUUWu5uC
+      client_secret: ${AUTHENTIK_CLIENT_SECRET}
+      auth_url: ${AUTHENTIK_AUTH_URL}
+      api_url: ${AUTHENTIK_API_URL}
+      scopes: openid profile email
