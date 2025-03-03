@@ -41,8 +41,8 @@ global:
           name: authentik-redis-conn-credential
           key: username
 authentik:
-  secret_key: "PleaseGenerateASecureKey"
-  bootstrap_token: ""
+  secret_key: "8Hnh4RkBD0wcC+O1LOKvW9/RxB218uXM27Kz2PR/CzpaPtZdLq07Cg+k4aQjr7lxrzJnuI4FW/tulTCJ"
+  bootstrap_token: "test"
   bootstrap_password: "test"
   # This sends anonymous usage-data, stack traces on errors and
   # performance data to sentry.io, and is fully opt-in
