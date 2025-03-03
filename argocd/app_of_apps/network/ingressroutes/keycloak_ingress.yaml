@@ -1,7 +1,7 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: keycloak
+  name: authentik
   namespace: traefik
   annotations:
     kubernetes.io/ingress.class: traefik-external
@@ -12,8 +12,8 @@ spec:
     - match: Host(`keycloak.local.001083.xyz`)
       kind: Rule
       services:
-        - name: keycloak
-          namespace: keycloak
+        - name: authentik-app-server
+          namespace: authentik
           kind: Service
           port: 443
   tls:
