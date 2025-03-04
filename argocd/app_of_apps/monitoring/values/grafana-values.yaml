@@ -53,6 +53,6 @@ grafana.ini:
     client_id: ${GF_AUTH_GENERIC_OAUTH_CLIENT_ID}
     client_secret: ${GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET}
     auth_url: ${GF_AUTH_GENERIC_OAUTH_AUTH_URL}
-    api_url: http://authentik.local.001083.xyz/application/o/userinfo/
-    token_url: http://authentik-app-server.monitoring.svc.cluster.local/application/o/userinfo/
+    api_url: ${GF_AUTH_GENERIC_OAUTH_API_URL}
+    token_url: ${GF_AUTH_GENERIC_OAUTH_TOKEN_URL}
     scopes: openid profile email
