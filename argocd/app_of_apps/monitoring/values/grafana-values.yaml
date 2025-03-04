@@ -1,6 +1,6 @@
 extraVolumeMounts:
   - name: grafana-secrets
-    mountPath: /etc/ssl/certs/ca-certificates.crt
+    mountPath: /certs
     readOnly: true
 extraVolumes:
   - name: grafana-secrets
@@ -48,6 +48,8 @@ grafana.ini:
     name: authentik
     enabled: true
     use_pkce: true
+    tls_client_cert: /certs/tls.crt
+    tls_client_key: /certs/tls.key
     client_id: ${GF_AUTH_GENERIC_OAUTH_CLIENT_ID}
     client_secret: ${GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET}
     auth_url: ${GF_AUTH_GENERIC_OAUTH_AUTH_URL}
