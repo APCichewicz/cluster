@@ -46,4 +46,4 @@ grafana.ini:
     auth_url: ${GF_AUTH_GENERIC_OAUTH_AUTH_URL}
     api_url: ${GF_AUTH_GENERIC_OAUTH_API_URL}
     token_url: ${GF_AUTH_GENERIC_OAUTH_TOKEN_URL}
-    scopes: "openid profile email"
+    scopes: openid profile email
