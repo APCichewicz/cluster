@@ -1,11 +1,10 @@
-extraVolumeMounts:
-  - name: grafana-secrets
+extraSecretMounts:
+  - name: secret-files
     mountPath: /certs
+    secretName: local-001083-xyz-tls
     readOnly: true
-extraVolumes:
-  - name: grafana-secrets
-    secret:
-      secretName: local-001083-xyz-tls
+    optional: false
+    subPath: ""
 envFromSecrets:
   - name: grafana-postgres-db-postgresql-account-postgres
     prefix: POSTGRES_
