@@ -46,6 +46,10 @@ grafana.ini:
   generic_oauth:
     name: authentik
     enabled: true
+    auth_style: inParams
+    allow_sign_up: true
+    use_pkce: false
+    insecure_skip_verify: true
     client_id: ${GF_AUTH_GENERIC_OAUTH_CLIENT_ID}
     client_secret: ${GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET}
     auth_url: ${GF_AUTH_GENERIC_OAUTH_AUTH_URL}
