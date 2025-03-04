@@ -46,7 +46,7 @@ grafana.ini:
   generic_oauth:
     name: authentik
     enabled: true
-    auth_style: inParams
+    auth_style: InParams
     allow_sign_up: true
     use_pkce: false
     tls_skip_verify_insecure: true
