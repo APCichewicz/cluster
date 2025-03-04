@@ -1,3 +1,10 @@
+extraVolumeMounts:
+  - name: authentik-secret
+    mountPath: /certs
+extraVolumes:
+  - name: authentik-secret
+    secret:
+      secretName: local-001083-xyz-tls
 envFromSecrets:
   - name: grafana-postgres-db-postgresql-account-postgres
     prefix: POSTGRES_
