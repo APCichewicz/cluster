@@ -49,7 +49,7 @@ grafana.ini:
     auth_style: inParams
     allow_sign_up: true
     use_pkce: false
-    insecure_skip_verify: true
+    tls_skip_verify_insecure: true
     client_id: ${GF_AUTH_GENERIC_OAUTH_CLIENT_ID}
     client_secret: ${GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET}
     auth_url: ${GF_AUTH_GENERIC_OAUTH_AUTH_URL}
