@@ -50,6 +50,7 @@ grafana.ini:
     name: authentik
     enabled: true
     use_pkce: true
+    tls_skip_verify_insecure: true
     tls_client_cert: /certs/tls.crt
     tls_client_key: /certs/tls.key
     client_id: ${GF_AUTH_GENERIC_OAUTH_CLIENT_ID}
