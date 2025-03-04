@@ -35,9 +35,6 @@ sidecar:
 grafana.ini:
   server:
     root_url: "https://grafana.local.001083.xyz"
-    http_tls_config:
-      cert_file: /certs/tls.crt
-      key_file: /certs/tls.key
   database:
     type: postgres
     host: grafana-postgres-db-postgresql-postgresql.monitoring.svc.cluster.local
@@ -49,10 +46,6 @@ grafana.ini:
   generic_oauth:
     name: authentik
     enabled: true
-    use_pkce: true
-    tls_skip_verify_insecure: true
-    tls_client_cert: /certs/tls.crt
-    tls_client_key: /certs/tls.key
     client_id: ${GF_AUTH_GENERIC_OAUTH_CLIENT_ID}
     client_secret: ${GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET}
     auth_url: ${GF_AUTH_GENERIC_OAUTH_AUTH_URL}
