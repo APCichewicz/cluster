@@ -1,4 +1,8 @@
 global:
+  volumeMounts:
+    - name: authentik-secret
+      mountPath: /certs
+      secretName: local-001083-xyz-tls
   env:
     - name: AUTHENTIK_POSTGRESQL__PASSWORD
       valueFrom:
