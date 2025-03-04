@@ -39,6 +39,7 @@ grafana.ini:
     oauth_auto_login: true
   generic_oauth:
     name: authentik
+    tls_skip_verify_insecure: true
     enabled: true
     client_id: ${GF_AUTH_GENERIC_OAUTH_CLIENT_ID}
     client_secret: ${GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET}
