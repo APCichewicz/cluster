@@ -35,8 +35,7 @@ grafana.ini:
     user: ${POSTGRES_username}
     password: ${POSTGRES_password}
   auth:
-    signout_redirect_url: "https://authentik.company/application/o/<Slug of the application from above>/end-session/"
-    oauth_auto_login: true
+    signout_redirect_url: "https://authentik.company/application/o/grafana/end-session/"
   generic_oauth:
     name: authentik
     enabled: true
@@ -44,6 +43,6 @@ grafana.ini:
     client_id: ${GF_AUTH_GENERIC_OAUTH_CLIENT_ID}
     client_secret: ${GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET}
     auth_url: ${GF_AUTH_GENERIC_OAUTH_AUTH_URL}
-    api_url: https://authentik-app-server.monitoring.svc.cluster.local/application/o/userinfo/
-    token_url: https://authentik-app-server.monitoring.svc.cluster.local/application/o/userinfo/
+    api_url: http://authentik.local.001083.xyz/application/o/userinfo/
+    token_url: http://authentik-app-server.monitoring.svc.cluster.local/application/o/userinfo/
     scopes: openid profile email
