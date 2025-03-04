@@ -1,8 +1,9 @@
 extraVolumeMounts:
-  - name: authentik-secret
+  - name: grafana-secrets
     mountPath: /etc/ssl/certs/ca-certificates.crt
+    readOnly: true
 extraVolumes:
-  - name: authentik-secret
+  - name: grafana-secrets
     secret:
       secretName: local-001083-xyz-tls
 envFromSecrets:
