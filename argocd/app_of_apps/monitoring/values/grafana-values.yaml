@@ -1,7 +1,6 @@
 extraVolumeMounts:
   - name: authentik-secret
     mountPath: /etc/ssl/certs/ca-certificates.crt
-    subPath: ca-certificates.crt
 extraVolumes:
   - name: authentik-secret
     secret:
