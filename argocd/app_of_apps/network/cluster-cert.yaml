@@ -4,6 +4,10 @@ metadata:
   name: local-example-com
   namespace: traefik
 spec:
+  secretTemplate:
+    annotations:
+      reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+      reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "*"
   secretName: local-001083-xyz-tls
   issuerRef:
     name: letsencrypt-staging
