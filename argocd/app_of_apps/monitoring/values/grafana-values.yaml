@@ -54,3 +54,4 @@ grafana.ini:
     api_url: ${GF_AUTH_GENERIC_OAUTH_API_URL}
     token_url: ${GF_AUTH_GENERIC_OAUTH_TOKEN_URL}
     scopes: "openid profile email offline_access"
+    use_pkce: true
