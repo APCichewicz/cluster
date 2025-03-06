@@ -44,15 +44,16 @@ grafana.ini:
     user: ${POSTGRES_username}
     password: ${POSTGRES_password}
   auth:
-    signout_redirect_url: "https://authentik.company/application/o/grafana/end-session/"
+    signout_redirect_url: "https://authentik.company/application/o/<Slug of the application from above>/end-session/"
     oauth_auto_login: true
-  generic_oauth:
+  auth.generic_oauth:
     name: authentik
     enabled: true
-    tls_skip_verify_insecure: true
+    scopes: "openid profile email"
+    auth_url: "https://authentik.local.001083.xyz/application/o/authorize/"
+    token_url: "https://authentik.local.001083.xyz/application/o/token/"
+    api_url: "https://authentik.local.001083.xyz/application/o/userinfo/"
+    # Optionally map user groups to Grafana roles
+    role_attribute_path: contains(groups, 'Grafana Admins') && 'Admin' || contains(groups, 'Grafana Editors') && 'Editor' || 'Viewer'
     client_id: ${GF_AUTH_GENERIC_OAUTH_CLIENT_ID}
-    client_secret: 2jisTLhkutzyrMYHi7JPRqMMj3NspxnCukaHHA8kG66ILBCXO8DISHOPhdtLwSN0V5gEwH6S06ZVfgPxur6HlFo43KtcEfVcfmdeqXyblchmHvWmaYcwFv339vvAi2CS
-    auth_url: ${GF_AUTH_GENERIC_OAUTH_AUTH_URL}
-    api_url: ${GF_AUTH_GENERIC_OAUTH_API_URL}
-    token_url: ${GF_AUTH_GENERIC_OAUTH_TOKEN_URL}
-    scopes: "openid profile email offline_access"
+    client_secret: ${GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET}
