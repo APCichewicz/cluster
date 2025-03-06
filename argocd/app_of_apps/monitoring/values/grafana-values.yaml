@@ -52,6 +52,6 @@ grafana.ini:
     client_secret: ${GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET}
     auth_url: ${GF_AUTH_GENERIC_OAUTH_AUTH_URL}
     api_url: ${GF_AUTH_GENERIC_OAUTH_API_URL}
-    token_url: ${GF_AUTH_GENERIC_OAUTH_TOKEN_URL}
+    token_url: authentik-app-server.authentik.svc.cluster.local/o/grafana/auth/generic/token
     scopes: "openid profile email offline_access"
     use_pkce: true
