@@ -48,6 +48,7 @@ grafana.ini:
     signout_redirect_url: "https://authentik.local.001083.xyz/application/o/grafana/end-session/"
     oauth_auto_login: true
   auth.generic_oauth:
+    client_authentication: client_secret_post
     name: authentik
     enabled: true
     scopes: "openid profile email"
