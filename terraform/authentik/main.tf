@@ -9,7 +9,7 @@ terraform {
 
 provider authentik {
   url = "https://authentik.local.001083.xyz"
-  token = "feKSSlmPZE7MORgiUGOheYdwEpzjGUgbrFEdIAm6Nkf7NyM363gYm0Wm1CUZ"
+  token = "R9VbPtS8unUaUEMr77i4jmMVeaxcjN3Y9m9S0tiuJOb8UmwKmTugG1Ka7VT2"
 }
 
 data "authentik_flow" "default-provider-authorization-implicit-consent" {
@@ -31,7 +31,7 @@ data "authentik_property_mapping_provider_scope" "scope-openid" {
 resource "authentik_provider_oauth2" "grafana" {
   name          = "Grafana"
   client_id     = "rtrMrSqlL8TRZR6sEiiU8glYU1rlLBLtYUUWu5uC"
-  client_secret = "2jisTLhkutzyrMYHi7JPRqMMj3NspxnCukaHHA8kG66ILBCXO8DISHOPhdtLwSN0V5gEwH6S06ZVfgPxur6HlFo43KtcEfVcfmdeqXyblchmHvWmaYcwFv339vvAi2CS"
+  client_secret = "2jisTLhkutzyrMYHi7JPRqMMj3NspxnCukaHHA8kG"
 
   allowed_redirect_uris = [
     {
@@ -40,7 +40,7 @@ resource "authentik_provider_oauth2" "grafana" {
     }
   ]
   client_type = "confidential"
-  
+
   authorization_flow  = data.authentik_flow.default-provider-authorization-implicit-consent.id
   invalidation_flow   = data.authentik_flow.default-provider-authorization-implicit-consent.id  
   property_mappings = [
