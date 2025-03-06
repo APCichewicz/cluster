@@ -6,7 +6,7 @@ extraSecretMounts:
     optional: false
     subPath: ""
   - name: grafana-oauth-secret
-    mountPath: /tmp/grafana-oauth-secret
+    mountPath: /etc/secrets/auth_generic_oauth
     secretName: grafana-oauth-secret
     readOnly: true
     optional: false
@@ -59,8 +59,8 @@ grafana.ini:
     api_url: "https://authentik.local.001083.xyz/application/o/userinfo/"
     # Optionally map user groups to Grafana roles
     role_attribute_path: contains(groups, 'Grafana Admins') && 'Admin' || contains(groups, 'Grafana Editors') && 'Editor' || 'Viewer'
-    client_id: $__file{./tmp/grafana-oauth-secret/client_id}
-    client_secret: $__file{./tmp/grafana-oauth-secret/client_secret}
+    client_id: $__file{/etc/secrets/auth_generic_oauth/client_id}
+    client_secret: $__file{/etc/secrets/auth_generic_oauth/client_secret}
 users:
   auto_assign_org: true
   auto_assign_org_id: 1
