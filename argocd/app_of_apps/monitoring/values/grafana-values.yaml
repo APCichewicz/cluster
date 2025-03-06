@@ -44,7 +44,7 @@ grafana.ini:
     user: ${POSTGRES_username}
     password: ${POSTGRES_password}
   auth:
-    signout_redirect_url: "https://authentik.company/application/o/<Slug of the application from above>/end-session/"
+    signout_redirect_url: "https://authentik.local.001083.xyz/application/o/grafana/end-session/"
     oauth_auto_login: true
   auth.generic_oauth:
     name: authentik
@@ -57,3 +57,6 @@ grafana.ini:
     role_attribute_path: contains(groups, 'Grafana Admins') && 'Admin' || contains(groups, 'Grafana Editors') && 'Editor' || 'Viewer'
     client_id: ${GF_AUTH_GENERIC_OAUTH_CLIENT_ID}
     client_secret: ${GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET}
+users:
+  auto_assign_org: true
+  auto_assign_org_id: 1
