@@ -14,6 +14,8 @@ envFromSecrets:
   - name: grafana-postgres-db-postgresql-account-postgres
     prefix: POSTGRES_
     optional: false
+env:
+  GF_AUTH_GENERIC_OAUTH_CLIENT_AUTHENTICATION: client_secret_post
 rbac:
   create: true
 adminUser: admin
