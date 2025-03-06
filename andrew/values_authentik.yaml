@@ -1,0 +1,48 @@
+authentik:
+  email:
+    host: "mail.spacemail.com"
+    port: 465
+    username: "hello@kubectl.shop"
+    password: "F782d41d-822b-4324-aC82-571f918E8939"
+    use_tls: false
+    use_ssl: true
+    timeout: 30
+    from: "authentik <hello@kubectl.shop>"
+  secret_key: file:///authentik-creds/secret_key
+  postgresql:
+    host: authentik-db-rw 
+    user: file:///postgres-creds/username
+    password: file:///postgres-creds/password
+server:
+  volumes:
+    - name: authentik-creds
+      secret:
+        secretName: authentik-creds    
+    - name: postgres-creds
+      secret:
+        secretName: authentik-db-superuser 
+  volumeMounts:
+    - name: postgres-creds
+      mountPath: /postgres-creds
+      readOnly: true
+    - name: authentik-creds
+      mountPath: /authentik-creds
+      readOnly: true
+worker:
+  volumes:
+    - name: authentik-creds
+      secret:
+        secretName: authentik-creds    
+    - name: postgres-creds
+      secret:
+        secretName: authentik-db-superuser 
+  volumeMounts:
+    - name: postgres-creds
+      mountPath: /postgres-creds
+      readOnly: true
+    - name: authentik-creds
+      mountPath: /authentik-creds
+      readOnly: true
+
+redis:
+  enabled: true

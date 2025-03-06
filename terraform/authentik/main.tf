@@ -67,3 +67,12 @@ resource "authentik_group" "grafana_editors" {
 resource "authentik_group" "grafana_viewers" {
   name    = "Grafana Viewers"
 }
+
+resource "authentik_outpost" "outpost" {
+  name = "auth-endpoint"
+  service_connection = authentik_service_connection_kubernetes.local.id
+  protocol_providers = [
+    authentik_provider_proxy.proxy.id
+  ]
+}
+
