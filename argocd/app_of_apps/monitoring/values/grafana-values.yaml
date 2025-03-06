@@ -1,7 +1,7 @@
 extraSecretMounts:
   - name: secret-files
     mountPath: /certs
-    secretName: local-001083-xyz-tls
+    secretName: local-001083-xyz-tls-prod
     readOnly: true
     optional: false
     subPath: ""
@@ -14,8 +14,6 @@ envFromSecrets:
   - name: grafana-postgres-db-postgresql-account-postgres
     prefix: POSTGRES_
     optional: false
-env:
-  GF_SERVER_ROOT_URL: "https://grafana.local.001083.xyz"
 rbac:
   create: true
 adminUser: admin
