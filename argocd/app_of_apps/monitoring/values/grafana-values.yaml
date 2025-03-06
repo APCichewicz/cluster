@@ -5,12 +5,11 @@ extraSecretMounts:
     readOnly: true
     optional: false
     subPath: ""
-  - name: grafana-oauth-secret
-    mountPath: /etc/secrets/auth_generic_oauth
+  - name: auth-generic-oauth-secret-mount
     secretName: grafana-oauth-secret
+    defaultMode: 0440
+    mountPath: /etc/secrets/auth_generic_oauth
     readOnly: true
-    optional: false
-    subPath: ""
 envFromSecrets:
   - name: grafana-postgres-db-postgresql-account-postgres
     prefix: POSTGRES_
@@ -59,8 +58,8 @@ grafana.ini:
     api_url: "https://authentik.local.001083.xyz/application/o/userinfo/"
     # Optionally map user groups to Grafana roles
     role_attribute_path: contains(groups, 'Grafana Admins') && 'Admin' || contains(groups, 'Grafana Editors') && 'Editor' || 'Viewer'
-    client_id: $__file{/etc/secrets/auth_generic_oauth/client_id}
-    client_secret: $__file{/etc/secrets/auth_generic_oauth/client_secret}
+    client_id: $__file{/etc/secrets/auth_generic_oauth/GF_AUTH_GENERIC_OAUTH_CLIENT_ID}
+    client_secret: $__file{/etc/secrets/auth_generic_oauth/GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET}
 users:
   auto_assign_org: true
   auto_assign_org_id: 1
