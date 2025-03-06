@@ -12,12 +12,9 @@ envFromSecrets:
   - name: grafana-oauth-secret
     optional: false
 env:
-  - name: GF_SERVER_ROOT_URL
-    value: "https://grafana.local.001083.xyz"
-  - name: GF_AUTH_GENERIC_OAUTH_TOKEN_URL
-    value: "http://authentik.authentik.svc.cluster.local/application/o/token/"
-  - name: GF_AUTH_GENERIC_OAUTH_API_URL
-    value: "http://authentik.authentik.svc.cluster.local/application/o/userinfo/"
+  GF_SERVER_ROOT_URL: "https://grafana.local.001083.xyz"
+  GF_AUTH_GENERIC_OAUTH_TOKEN_URL: "http://authentik.authentik.svc.cluster.local/application/o/token/"
+  GF_AUTH_GENERIC_OAUTH_API_URL: "http://authentik.authentik.svc.cluster.local/application/o/userinfo/"
 rbac:
   create: true
 adminUser: admin
