@@ -5,7 +5,7 @@ global:
   volumes:
     - name: authentik-secret
       secret:
-        secretName: local-001083-xyz-tls
+        secretName: local-001083-xyz-tls-prod
   env:
     - name: AUTHENTIK_POSTGRESQL__PASSWORD
       valueFrom:
