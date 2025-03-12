@@ -2,4 +2,4 @@
 **/*.tfstate
 **/*.tfstate.*
 
-./terraform/authentik/vars.tfvars
+**/*.tfvars
