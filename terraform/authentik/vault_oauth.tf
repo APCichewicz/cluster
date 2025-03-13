@@ -1,3 +1,4 @@
+
 resource "authentik_provider_oauth2" "vault" {
   name = "Vault"
   authorization_flow = data.authentik_flow.default-source-authentication.id
@@ -5,6 +6,12 @@ resource "authentik_provider_oauth2" "vault" {
 
   client_id = "PuIEu9d9gKqUFTHFRTSh2kWoT52Mx3FPzNaJfsCp"
   client_secret = var.vault_oauth_secret
+  property_mappings = [
+    data.authentik_property_mapping_provider_scope.scope-profile.id,
+    data.authentik_property_mapping_provider_scope.scope-email.id,
+    data.authentik_property_mapping_provider_scope.scope-openid.id
+  ]
+  signing_key = data.authentik_certificate_key_pair.self_signed_certificate.id
   allowed_redirect_uris = [
     {
       matching_mode = "strict"
@@ -22,8 +29,14 @@ resource "authentik_provider_oauth2" "vault" {
   client_type = "confidential"
 }
 
+data "authentik_certificate_key_pair" "self_signed_certificate" {
+  name = "authentik Self-signed Certificate"
+}
+
 resource "authentik_application" "vault" {
   name              = "Vault"
-  slug              = "vault"
+  slug              = "vault-slug"
   protocol_provider = authentik_provider_oauth2.vault.id
 }
+
+
