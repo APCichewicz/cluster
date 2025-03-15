@@ -17,4 +17,5 @@ jobs:
             -d "client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer" \
             -d "client_assertion=$inputJWT" \
             -d "client_id=Ov23licfzX3iwK2HedzP")
+          echo $RESPONSE
           echo "RESPONSE=$RESPONSE" >> $GITHUB_OUTPUT
