@@ -17,5 +17,11 @@ jobs:
             -d "client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer" \
             -d "client_assertion=$inputJWT" \
             -d "client_id=Ov23licfzX3iwK2HedzP")
-          echo $RESPONSE
+          echo "response: $RESPONSE"
+
           echo "RESPONSE=$RESPONSE" >> $GITHUB_OUTPUT
+      - name: use authentik token to make a request of vault
+        run: |
+          RESPONSE=$(curl -X GET https://vault.local.001083.xyz/v1/secret/data/github \
+            -H "Authorization: Bearer $RESPONSE")
+          echo "response: $RESPONSE"
