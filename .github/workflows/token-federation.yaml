@@ -22,6 +22,7 @@ jobs:
           echo "RESPONSE=$RESPONSE" >> $GITHUB_OUTPUT
       - name: use authentik token to nake a secret in hashicorp vault
         run: |
+          nslookup vault.local.001083.xyz
           openssl s_client -connect vault.local.001083.xyz:443 -tls1_2
           curl -X POST https://vault.local.001083.xyz/v1/secret/data/github \
             -H "Authorization: Bearer $RESPONSE" \
