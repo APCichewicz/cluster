@@ -9,7 +9,7 @@ jobs:
         run: |
           echo "TOKEN=${{ secrets.GITHUB_TOKEN }}" > $GITHUB_OUTPUT
       - name: get authentik token
-        run: |                    https://authentik.local.001083.xyz/o/token/
+        run: |
           RESPONSE=$(curl -X POST https://authentik.local.001083.xyz/o/token/ \
             -H "Authorization: Bearer '${{ secrets.GITHUB_TOKEN }}'" \
             -H "Content-Type: application/x-www-form-urlencoded" \
@@ -26,5 +26,3 @@ jobs:
             -H "Authorization: Bearer $RESPONSE" \
             -H "Content-Type: application/json" \
             -d '{"data": {"token": "1234567890"}}'
-
-          
