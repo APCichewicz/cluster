@@ -1,0 +1,20 @@
+name: Token Federation test
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: self-hosted
+    steps:
+      - name: get github token
+        run: |
+          echo "TOKEN=${{ secrets.GITHUB_TOKEN }}" > $GITHUB_OUTPUT
+      - name: get authentik token
+        run: |
+          RESPONSE=$(curl -X POST -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: x-www-form-urlencoded" \
+            -d "grant_type=client_credentials" \
+            -d "client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer" \
+            -d "client_assertion=$inputJWT" \
+            -d "client_id=Ov23licfzX3iwK2HedzP")
+          echo "RESPONSE=$RESPONSE"
+          echo "RESPONSE=$RESPONSE" >> $GITHUB_OUTPUT
