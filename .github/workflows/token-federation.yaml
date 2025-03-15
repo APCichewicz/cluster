@@ -10,11 +10,11 @@ jobs:
           echo "TOKEN=${{ secrets.GITHUB_TOKEN }}" > $GITHUB_OUTPUT
       - name: get authentik token
         run: |
-          RESPONSE=$(curl -X POST -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Content-Type: x-www-form-urlencoded" \
+          RESPONSE=$(curl -X POST https://authentik.local.001083.xyz/o/token/ \
+            -H "Authorization: Bearer '${{ secrets.GITHUB_TOKEN }}'" \
+            -H "Content-Type: application/x-www-form-urlencoded" \
             -d "grant_type=client_credentials" \
             -d "client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer" \
-            -d "client_assertion=$inputJWT"
-            -d "client_id="Ov23licfzX3iwK2HedzP")
-          echo "RESPONSE=$RESPONSE"
+            -d "client_assertion=$inputJWT" \
+            -d "client_id=Ov23licfzX3iwK2HedzP")
           echo "RESPONSE=$RESPONSE" >> $GITHUB_OUTPUT
