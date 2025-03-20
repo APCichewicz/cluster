@@ -5,11 +5,10 @@ jobs:
   test:
     runs-on: self-hosted
     steps:
-      - name: get github token
-        run: |
-          echo "TOKEN=${{ secrets.GITHUB_TOKEN }}" > $GITHUB_OUTPUT
       - name: get authentik token
         run: |
+          # get github token workflow default token
+          inputJWT=${{ secrets.GITHUB_TOKEN }}
           RESPONSE=$(curl -X POST https://authentik.local.001083.xyz/o/token/ \
             -H "Authorization: Bearer '${{ secrets.GITHUB_TOKEN }}'" \
             -H "Content-Type: application/x-www-form-urlencoded" \
@@ -19,12 +18,12 @@ jobs:
             -d "client_id=Ov23licfzX3iwK2HedzP")
           echo "response: $RESPONSE"
 
-          echo "RESPONSE=$RESPONSE" >> $GITHUB_OUTPUT
+          echo "RESPONSE=$RESPONSE" >> $GITHUB_ENV
       - name: use authentik token to nake a secret in hashicorp vault
         run: |
-          nslookup vault.local.001083.xyz
-          openssl s_client -connect vault.local.001083.xyz:443 -tls1_2
+          # use authentik token to make a secret in hashicorp vault
+          inputJWT=${{ env.RESPONSE }}
           curl -X POST https://vault.local.001083.xyz/v1/secret/data/github \
-            -H "Authorization: Bearer $RESPONSE" \
+            -H "Authorization: Bearer $inputJWT" \
             -H "Content-Type: application/json" \
-            -d '{"data": {"token": "$RESPONSE"}}'
+            -d '{"data": {"token": "$inputJWT"}}'
