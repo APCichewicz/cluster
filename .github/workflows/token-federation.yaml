@@ -20,9 +20,9 @@ jobs:
 
           RESPONSE=$(curl -k -X POST https://authentik.local.001083.xyz/application/o/token/ \
             -H "Content-Type: application/x-www-form-urlencoded" \
-            -d "grant_type=client_credentials" \
-            -d "client_assertion_type: urn:ietf:params:oauth:client-assertion-type:jwt-bearer" \
-            -d "client_assertion: $GITHUB_JWT" \
+            -d "grant_type: client_credentials" \
+            -d "client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer" \
+            -d "client_assertion=$GITHUB_JWT" \
             -d "client_id=Ov23licfzX3iwK2HedzP")
           echo "response: $RESPONSE"
 
