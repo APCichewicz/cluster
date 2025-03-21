@@ -9,7 +9,22 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: get authentik token
-        run: "echo \"ACTIONS_ID_TOKEN_REQUEST_TOKEN: $ACTIONS_ID_TOKEN_REQUEST_TOKEN\"\nOIDC_TOKEN_RESPONSE=$(curl -H \"Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN\" \"$ACTIONS_ID_TOKEN_REQUEST_URL\")\n\n# Extract the token from the response\nGITHUB_JWT=$(echo $OIDC_TOKEN_RESPONSE | jq -r '.value')\n\n  \nRESPONSE=$(curl -X POST https://authentik.local.001083.xyz/application/o/token/ \\\n  -H \"Content-Type: application/x-www-form-urlencoded\" \\\n  -d \"grant_type=client_credentials\" \\\n  -d \"client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer\" \\\n  -d \"client_assertion=$GITHUB_JWT\" \\\n  -d \"client_id=Ov23licfzX3iwK2HedzP\")\necho \"response: $RESPONSE\"\n\necho \"RESPONSE=$RESPONSE\" >> $GITHUB_ENV\n"
+        run: |
+          echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN: $ACTIONS_ID_TOKEN_REQUEST_TOKEN"
+          OIDC_TOKEN_RESPONSE=$(curl -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL")
+
+          # Extract the token from the response
+          GITHUB_JWT=$(echo $OIDC_TOKEN_RESPONSE | jq -r '.value')
+
+          RESPONSE=$(curl -k -X POST https://authentik.local.001083.xyz/application/o/token/ \
+            -H "Content-Type: application/x-www-form-urlencoded" \
+            -d "grant_type=client_credentials" \
+            -d "client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer" \
+            -d "client_assertion=$GITHUB_JWT" \
+            -d "client_id=Ov23licfzX3iwK2HedzP")
+          echo "response: $RESPONSE"
+
+          echo "RESPONSE=$RESPONSE" >> $GITHUB_ENV
       - name: use authentik token to nake a secret in hashicorp vault
         run: |
           # use authentik token to make a secret in hashicorp vault
