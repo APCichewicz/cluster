@@ -12,9 +12,11 @@ jobs:
         run: |
           echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN: $ACTIONS_ID_TOKEN_REQUEST_TOKEN"
           OIDC_TOKEN_RESPONSE=$(curl -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL")
-
+          echo "OIDC_TOKEN_RESPONSE: $OIDC_TOKEN_RESPONSE"
           # Extract the token from the response
           GITHUB_JWT=$(echo $OIDC_TOKEN_RESPONSE | jq -r '.value')
+
+          echo "GITHUB_JWT: $GITHUB_JWT"
 
           RESPONSE=$(curl -k -X POST https://authentik.local.001083.xyz/application/o/token/ \
             -H "Content-Type: application/x-www-form-urlencoded" \
