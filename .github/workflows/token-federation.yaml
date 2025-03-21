@@ -9,8 +9,7 @@ jobs:
         run: |
           # get github token workflow default token
           inputJWT=${{ secrets.GITHUB_TOKEN }}
-          RESPONSE=$(curl -X POST https://authentik.local.001083.xyz/o/token/ \
-            -H "Authorization: Bearer '${{ secrets.GITHUB_TOKEN }}'" \
+          RESPONSE=$(curl -X POST https://authentik.local.001083.xyz/application/o/token/ \
             -H "Content-Type: application/x-www-form-urlencoded" \
             -d "grant_type=client_credentials" \
             -d "client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer" \
