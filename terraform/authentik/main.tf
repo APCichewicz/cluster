@@ -9,7 +9,7 @@ terraform {
 
 provider authentik {
   url = "https://authentik.local.001083.xyz"
-  token = "m1S1DtZQDNgJGKR1v2OCFz7zncsobYIKt2jH4w9CYe61JRLzRNmpF5t5nmzq"
+  token = "8wuBUakpE41B5ZQxJNUUDxrC8vrpdWEjYNo9jQ8b1LZrtBUvJlEbEXI2XIV8"
 }
 
 data "authentik_flow" "default-provider-authorization-implicit-consent" {
