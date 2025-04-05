@@ -56,15 +56,15 @@ authentik:
   error_reporting:
     enabled: false
     # We don't need to define these since we're using environment variables
-    postgresql:
-      password: "postgres"
-      #   host: ""
-      #   name: "authentik"
-      #   port: ""
-      #   user: ""
-      # redis:
-      #   password: ""  
-      #   host: ""
+  postgresql:
+    password: "postgres"
+    #   host: ""
+    #   name: "authentik"
+    #   port: ""
+    #   user: ""
+    # redis:
+    #   password: ""  
+    #   host: ""
 server:
   ingress:
     enabled: false
