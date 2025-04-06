@@ -1,10 +1,10 @@
 extraSecretMounts:
-  # - name: secret-files
-  #   mountPath: /certs
-  #   secretName: local-001083-xyz-tls-prod
-  #   readOnly: true
-  #   optional: false
-  #   subPath: ""
+  - name: secret-files
+    mountPath: /certs
+    secretName: local-001083-xyz-tls-prod
+    readOnly: true
+    optional: false
+    subPath: ""
   - name: auth-generic-oauth-secret-mount
     secretName: grafana-oauth-secret
     defaultMode: 0440
@@ -46,7 +46,7 @@ grafana.ini:
     password: ${POSTGRES_password}
   auth:
     signout_redirect_url: "https://authentik.local.001083.xyz/application/o/grafana/end-session/"
-    oauth_auto_login: true
+    oauth_auto_login: false
   auth.generic_oauth:
     name: authentik
     enabled: true
