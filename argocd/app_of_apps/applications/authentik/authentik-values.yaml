@@ -7,11 +7,11 @@ global:
       secret:
         secretName: local-001083-xyz-tls-prod
   env:
-    - name: AUTHENTIK_POSTGRESQL__PASSWORD
-      valueFrom:
-        secretKeyRef:
-          name: authentik-conn-credential
-          key: password
+    # - name: AUTHENTIK_POSTGRESQL__PASSWORD
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: authentik-conn-credential
+    #       key: password
     - name: AUTHENTIK_REDIS__PASSWORD
       valueFrom:
         secretKeyRef:
