@@ -1,28 +1,26 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: actions-runner-controller
-#   namespace: argocd
-# spec:
-#   destination:
-#     server: https://kubernetes.default.svc
-#     namespace: actions-runner-system
-#   project: default
-#   # Helm-specific source configuration
-#   sources:
-#     - repoURL: 'https://actions-runner-controller.github.io/actions-runner-controller'
-#       targetRevision: 0.23.7
-#       chart: actions-runner-controller
-
-
-#       # Sync policy
-#       syncPolicy:
-#         syncOptions:
-#           - Validate=false
-#           - CreateNamespace=true
-#           - ServerSideApply=true
-#           - RespectIgnoreDifferences=true
-#           - Replace=true
-#         automated:
-#           prune: false
-#           selfHeal: false
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: actions-runner-controller
+  namespace: argocd
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: actions-runner-system
+  project: default
+  # Helm-specific source configuration
+  sources:
+    - repoURL: 'https://actions-runner-controller.github.io/actions-runner-controller'
+      targetRevision: 0.23.7
+      chart: actions-runner-controller
+      # Sync policy
+      syncPolicy:
+        syncOptions:
+          - Validate=false
+          - CreateNamespace=true
+          - ServerSideApply=true
+          - RespectIgnoreDifferences=true
+          - Replace=true
+        automated:
+          prune: false
+          selfHeal: false
