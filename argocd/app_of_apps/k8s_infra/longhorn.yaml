@@ -1,25 +1,23 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: longhorn
-#   namespace: argocd
-# spec:
-#   destination:
-#     server: https://kubernetes.default.svc
-#     namespace: longhorn-system
-#   project: default
-#   # Helm-specific source configuration
-#   sources:
-#     - repoURL: 'https://charts.longhorn.io'
-#       targetRevision: 1.8.0
-#       chart: longhorn # Path to your Helm chart in the repo
-#       # Sync policy
-#       syncPolicy:
-#         syncOptions:
-#           - Validate=false
-#           - CreateNamespace=true
-#           - ServerSideApply=true
-#           - RespectIgnoreDifferences=true
-#         automated:
-#           prune: false
-#           selfHeal: false
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: longhorn
+  namespace: argocd
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: longhorn-system
+  project: default
+  sources:
+    - repoURL: 'https://charts.longhorn.io'
+      targetRevision: 1.8.0
+      chart: longhorn
+      syncPolicy:
+        syncOptions:
+          - Validate=false
+          - CreateNamespace=true
+          - ServerSideApply=true
+          - RespectIgnoreDifferences=true
+        automated:
+          prune: false
+          selfHeal: false
