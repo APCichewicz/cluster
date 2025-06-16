@@ -17,6 +17,8 @@ ports:
     port: 443
     tls:
       enabled: true
+  metrics:
+    port: 9100
 ingressRoute:
   dashboard:
     enabled: true
@@ -57,3 +59,11 @@ securityContext:
   runAsGroup: 0
   runAsNonRoot: false
   runAsUser: 0
+metrics:
+  prometheus:
+    entryPoint: metrics
+    service:
+      enabled: true
+      labels:
+        - "traefik.scrape=true"
+      annotations: {}
