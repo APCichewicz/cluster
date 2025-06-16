@@ -65,5 +65,5 @@ metrics:
     service:
       enabled: true
       labels:
-        - "traefik.scrape=true"
+        traefik.scrape: "true"
       annotations: {}
