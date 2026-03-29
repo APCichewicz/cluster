@@ -69,8 +69,6 @@ server:
   ingress:
     enabled: false
 postgresql:
-  enabled: true
-  auth:
-    password: "postgres"
+  enabled: false
 redis:
   enabled: false
